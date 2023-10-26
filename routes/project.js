@@ -14,4 +14,6 @@ router.get('/create', projectController.renderCreateProject)
 
 router.get('/all', projectController.getAllProjects)
 
+router.get('/page/:id', projectController.showProjectPage)
+
 module.exports=router

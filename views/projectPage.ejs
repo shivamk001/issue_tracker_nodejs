@@ -1,0 +1,10 @@
+<title><%= title %></title>
+<link rel="stylesheet" href="/css/projectPage.css"/>
+<%- include('_header'); %>
+
+<section class="projectPageSection">
+    <h3><a href="/project/page/<%= project.id %>"><%= project.name %></a></h3>
+    <p><b>Author:</b><%= project.author?project.author.username:'' %></p>
+    <p><b>Created At:</b><%= project.createdAt %></p>
+    <p><b>Description:</b><%= project.description %></p>
+</section>

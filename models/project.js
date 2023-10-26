@@ -20,11 +20,17 @@ const ProjectSchema= new mongoose.Schema({
     }
 },{
     timestamps: true,
-    strictPopulate: false
+    strictPopulate: false,
     // methods:{},
     // statics:{},
     // query:{},
-    // virtuals:{}
+    virtuals:{
+        id:{
+            get(){
+                return this._id.toString()
+            }
+        }
+    }
 })
 
 const Project=mongoose.model('Project', ProjectSchema);

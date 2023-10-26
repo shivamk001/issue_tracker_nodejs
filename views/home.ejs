@@ -1,10 +1,22 @@
+<title>Home</title>
 <%- include('_header'); %>
-<ul>
-    <% for(let project of projects){ %>
-        <li>
-            <p><%= project.name %></p>
-            <p>Author: <%= project.author?project.author.username:'' %></p>
-            <p>Description: <%= project.description %></p>
-        </li>
-    <% } %>
-</ul>
+
+<section class="parentContainer" style="">
+    <section class="projectContainer">
+        <h1>All Projects</h1>
+        <% for(let project of projects){ %>
+            <div class="projectCard">
+                <h3><a href="/project/page/<%= project.id %>"><%= project.name %></a></h3>
+                <p><b>Author:</b><%= project.author?project.author.username:'' %></p>
+                <p><b>Created At:</b><%= project.createdAt %></p><br>
+                <p><b>Description:</b><%= project.description %></p>
+            </div>
+        <% } %>
+    </section>
+    <section class="rightContainer">
+        <h4>Right</h4>
+    </section>
+</section>
+
+
+</section>
