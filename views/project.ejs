@@ -1,0 +1,9 @@
+<%- include('_header'); %>
+<form action="/project/create" method="POST">
+        <input type="text" value="<%= author %>" name="author" hidden/>
+        <label for="projectFormName">Project Name</label><br>
+        <input id="projectFormName" type="text" name="name" placeholder="Enter project name"/><br>
+        <label for="projectFormDesc">Description</label><br>
+        <input id="projectFormDesc" type="text" name="description" placeholder="Enter project description"/><br><br>
+        <input type="submit" placeholder="Submit" value="Submit"/>
+</form>

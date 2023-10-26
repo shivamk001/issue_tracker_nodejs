@@ -1,0 +1,10 @@
+<%- include('_header'); %>
+<ul>
+    <% for(let project of projects){ %>
+        <li>
+            <p><%= project.name %></p>
+            <p>Author: <%= project.author?project.author.username:'' %></p>
+            <p>Description: <%= project.description %></p>
+        </li>
+    <% } %>
+</ul>

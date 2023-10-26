@@ -1,0 +1,34 @@
+body{
+    margin: 0%;
+    height: 100vh;
+    width: 100vw;
+    padding: 0%;
+}
+h4{
+    text-align: center;
+    margin: 0%;
+}
+
+#navbar{
+    background-color: aqua;
+    height: 5%;
+    position: relative;
+    /* overflow: hidden; */
+    /* display: flex; */
+    /* flex-direction: row; */
+    /* align-items: center; */
+}
+
+#navbar h4{
+    float: left;
+    padding: 5px;
+}
+
+#navbar a{
+    float: right;
+    padding: 5px;
+    margin: auto;
+    text-align: center;
+    /* position: absolute;
+    top: 40%; */
+}
