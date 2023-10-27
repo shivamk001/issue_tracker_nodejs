@@ -12,8 +12,10 @@ router.post('/create', (req, res, next)=>{
 
 router.get('/create', projectController.renderCreateProject)
 
-router.get('/all', projectController.getAllProjects)
+router.get('/all', (req, res, next)=>{console.log('/project/all'); next();}, projectController.getAllProjects)
 
 router.get('/page/:id', projectController.showProjectPage)
+
+router.post('/delete/:id', projectController.deleteProject)
 
 module.exports=router

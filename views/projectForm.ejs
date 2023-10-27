@@ -1,11 +1,25 @@
 <title><%= title %></title>
 <link rel="stylesheet" href="/css/projectForm.css"/>
-<%- include('_header'); %>
-<form action="/project/create" method="POST">
-        <input type="text" value="<%= author %>" name="author" hidden/>
-        <label for="projectFormName">Project Name</label><br>
-        <input id="projectFormName" type="text" name="name" placeholder="Enter project name"/><br>
-        <label for="projectFormDesc">Description</label><br>
-        <input id="projectFormDesc" type="text" name="description" placeholder="Enter project description"/><br><br>
-        <input type="submit" placeholder="Submit" value="Submit"/>
-</form>
+
+
+
+
+        <section class="formContainer">
+            <h1>Create Project</h1>
+            <form class="projectForm" action="/project/create" method="POST">
+                <input type="text" value="<%= author %>" name="author" hidden/>
+                <div class="inputContainer" style="height: 20%;">
+                        <p for="projectFormName">Project Name:</p>
+                        <input id="projectFormName" type="text" name="name" placeholder="Enter project name"/><br>
+                </div>
+                <div class="inputContainer">
+                        <p for="projectFormDesc">Description:</p>
+                        <textarea id="projectFormDesc" type="text" name="description" placeholder="Enter project description" textarea></textarea>
+                </div>
+                
+
+                <input type="submit" placeholder="Submit" value="Submit"/>
+            </form>
+        </section>
+
+

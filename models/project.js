@@ -11,13 +11,14 @@ const ProjectSchema= new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        maxLength: 200
+        maxLength: 1000
     },
     author:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'User',
         required: true
-    }
+    }, 
+    issues:[{type: mongoose.Schema.Types.ObjectId,ref:'Issue'}]
 },{
     timestamps: true,
     strictPopulate: false,

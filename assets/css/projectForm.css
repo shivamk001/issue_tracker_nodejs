@@ -1,3 +1,58 @@
-form{
-    background-color: blueviolet;
+
+
+.formContainer{
+    width: 88%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formContainer h1{
+    margin-left: 1%;
+}
+
+.projectForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    height: 50%;
+    
+}
+
+.projectForm input[type="submit"]{
+    height: 10%;
+    border: none;
+    background-color: #3b71ca;
+    color: white;
+    width: 25%;
+    cursor: pointer;
+}
+
+.inputContainer{
+    display: block;
+    width: 100%;
+    height: 40%;
+}
+
+.inputContainer p{
+    margin: 1%;
+    
+}
+
+.inputContainer input[type="text"]{
+    width: 100%;
+    height: 45%;
+    text-align: center;
+    font-size: large;
+}
+
+.inputContainer textarea{
+    width: 100%;
+    height: 60%;
+    text-align: center;
+    font-size: large;
+    padding: 1%;
 }

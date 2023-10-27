@@ -9,6 +9,6 @@ module.exports.home=async function(req, res){
     // projects.forEach(project=>{
     //     console.log(project.id)
     // })
-    return res.render('home', {title: 'IssueTrackerHome', projects});
+    return res.render('home', {title: 'IssueTrackerHome', projects, page: 'home'});
 }
 

@@ -3,13 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ca58c8957e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/home.css">
     
     <%- style %>
 </head>
 <body>
 
-    <%- body %>
+    <section class="parentContainer">
+        <section class="leftContainer">
+            <h1 style="margin: 10px;">Issue Tracker</h1>
+            <div class="linksContainer">
+                <a href="/" 
+                style="color: <%= page=='home'? '#0049B0' : 'white' %>">
+                <i class="fa-solid fa-house" style="color: <%= page=='home'? '#0049B0' : 'white' %>"></i>&nbsp;Home</a>
+    
+                <a href="/project/create" 
+                style="color: <%= page=='projectForm'? '#0049B0' : 'white' %>">
+                <i class="fa-solid fa-plus" style="color: <%= page=='projectForm'? '#0049B0' : 'white' %>"></i>&nbsp;Create Project</a>
+    
+                <a href=""><i class="fa-solid fa-filter"></i>&nbsp;Filter Project</a>
+
+                <a href=""><i class="fa-solid fa-folder"></i>&nbsp;Projects</a>
+
+                <a href=""><i class="fa-solid fa-right-to-bracket"></i>&nbsp;Login</a>
+                
+                <a href=""><i class="fa-solid fa-user-plus"></i>&nbsp;Signup</a>
+    
+            </div>
+        </section>
+
+        <%- body %>
+    </section>
+
+    
+    
     <%- script %>
 </body>
 </html>
