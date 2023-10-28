@@ -5,7 +5,7 @@ h4{
     display: flex;
     width: 88%;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
 
@@ -17,7 +17,11 @@ h4{
 
 .issueSection{
     margin: 1%;
-    width: 45%;
+    margin-right: 0%;
+    margin-bottom: 2%;
+    width: 50%;
+    height: 100%;
+    overflow: scroll;
 }
 
 .issueContainer{
@@ -27,6 +31,7 @@ h4{
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    
     /* margin-left: 5%; */
 }
 
@@ -56,3 +61,14 @@ h4{
     display: inline-block;
     margin: 5px;
 }
+
+
+#deleteButton{
+    height: 10%;
+    border: none;
+    background-color: #DC4C64;
+    color: white;
+    width: 25%;
+    cursor: pointer;
+}
+

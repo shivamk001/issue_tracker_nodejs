@@ -8,19 +8,25 @@
         <p><b>Author:</b><%= project.author?project.author.username:'' %></p>
         <p><b>Created At:</b><%= project.createdAt %></p>
         <p><b>Description:</b><%= project.description %></p>
-        <form action="/project/delete/<%= project.id %>" method="POST">
-            <input type="submit" value="Delete Project"/>
+        <form action="/project/delete/<%= project.id %>" method="POST" style="display: flex; justify-content: center;">
+            <input id="deleteButton" type="submit" value="Delete Project"/>
         </form>
+
         <h4 style="text-align: left;">CREATE AN ISSUE</h4>
-        <form action="/issue/create" method="POST">
+        <form class="form" action="/issue/create" method="POST" style="width: 100%;">
             <input type="text" name="project" value="<%= project.id %>" hidden/>
             <input type="text" name="author" value="653900145784c63eab3a3b25" hidden/>
-            <label for="issueFormTitle">Title</label>
-            <input id="issueFormTitle" type="text" name="title" placeholder="Enter title"><br>
-            <label for="issueFormDescription">Description</label>
-            <textarea id="issueFormDescription" type="text" name="description" placeholder="Enter description" rows="1" cols="50"></textarea><br>
+            <div class="inputContainer" style="height: 25%;">
+                    <p for="issueFormTitle">Title:</p>
+                    <input id="issueFormTitle" type="text" name="title" placeholder="Enter title"><br>
+            </div>
+            <div class="inputContainer">
+                    <p for="issueFormDescription">Description</p>
+                    <textarea id="issueFormDescription" type="text" name="description" placeholder="Enter description"></textarea><br>
+            </div>
             <input type="submit" value="Submit issue">
         </form>
+
     </section>
     <section class="issueSection">
         <div class="issueContainer">

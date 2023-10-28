@@ -16,6 +16,10 @@ const UserSchema=new mongoose.Schema({
         type: String,
         enum:['admin', 'regular'],
         default: 'regular'
+    },
+    password:{
+        type: String,
+        maxLength: 50
     }
 },{
     timestamps: true

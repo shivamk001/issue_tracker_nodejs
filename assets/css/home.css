@@ -7,6 +7,7 @@ body{
     padding: 0%;
     height: 100vh;
     display: block;
+    overflow: hidden;
 }
 h4{
     text-align: center;
@@ -43,12 +44,13 @@ h4{
 
 
 .projectContainer{
-    width: 80%;
+    width: 88%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    overflow: scroll;
     /* margin-left: 5%; */
 }
 
@@ -75,4 +77,68 @@ h4{
 .projectCard p{
     display: inline-block;
     margin: 5px;
+}
+
+
+
+
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    height: 50%;
+    box-shadow: rgb(54, 48, 48) 1px 1px 5px 1px;
+}
+
+.form input[type="submit"]{
+    height: 10%;
+    border: none;
+    background-color: #3b71ca;
+    color: white;
+    width: 25%;
+    cursor: pointer;
+    margin: 1%;
+}
+
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 40%;
+}
+
+.inputContainer p{
+    margin: 1%;
+    
+}
+
+.inputContainer input[type="text"]{
+    width: 90%;
+    height: 45%;
+    text-align: center;
+    font-size: large;
+}
+
+.inputContainer input[type="email"]{
+    width: 90%;
+    height: 45%;
+    text-align: center;
+    font-size: large;
+}
+
+.inputContainer input[type="password"]{
+    width: 90%;
+    height: 45%;
+    text-align: center;
+    font-size: large;
+}
+
+.inputContainer textarea{
+    width: 90%;
+    height: 60%;
+    text-align: center;
+    font-size: large;
+    padding: 1%;
 }
