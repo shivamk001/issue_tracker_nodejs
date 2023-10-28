@@ -1,13 +1,11 @@
-$theme-colors: (
-  "primary":    $primary,
-  "secondary":  $secondary,
-  "success":    $success,
-  "info":       $info,
-  "warning":    $warning,
-  "danger":     $danger,
-  "light":      $light,
-  "dark":       $dark
-);
+Features of the project:
+  Create Project
+  Create issue of the project
+  Delete project
+  User login
+  User logout
 
-shivamk001
-password: 4gtBAfKze5K1D2wJ
+
+To Install the Project: npm install
+
+To Run the Project: npm start
