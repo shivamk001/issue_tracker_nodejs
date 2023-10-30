@@ -15,7 +15,7 @@
         <h4 style="text-align: left;">CREATE AN ISSUE</h4>
         <form class="form" action="/issue/create" method="POST" style="width: 100%;">
             <input type="text" name="project" value="<%= project.id %>" hidden/>
-            <input type="text" name="author" value="653900145784c63eab3a3b25" hidden/>
+            <input type="text" name="author" value="<%= author.id %>" hidden/>
             <div class="inputContainer" style="height: 25%;">
                     <p for="issueFormTitle">Title:</p>
                     <input id="issueFormTitle" type="text" name="title" placeholder="Enter title"><br>

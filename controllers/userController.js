@@ -17,6 +17,7 @@ module.exports.createUser=async (req, res)=>{
             let user=await User.create({
                 username, email, password, userType
             })
+            
             console.log('User created:', user)
             return res.redirect('/user/login')
         }
@@ -25,6 +26,7 @@ module.exports.createUser=async (req, res)=>{
         }
     }
     catch(err){
+        console.log('error:', err)
         return res.status(200).json({error: err})
     }
 }

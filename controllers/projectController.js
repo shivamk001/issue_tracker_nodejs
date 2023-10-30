@@ -34,7 +34,8 @@ module.exports.createProject=async (req, res)=>{
 }
 
 module.exports.renderCreateProject=(req, res)=>{
-    return res.render('projectForm', {author: '653900145784c63eab3a3b25', title: 'Create Project', page: 'projectForm'})
+    console.log('User in renderCreateProject:', req.user.id)
+    return res.render('projectForm', { title: 'Create Project', page: 'projectForm', user: req.user.id })
 }
 
 module.exports.getAllProjects=async (req, res)=>{
@@ -62,8 +63,8 @@ module.exports.showProjectPage=async(req, res)=>{
         .populate({path: 'issues', populate: {path: 'author', select:'username -_id'}})
         //.populate('issues.issue.author', 'username -_id');
 
-    console.log(_id, project)
-    res.render('projectPage', {project: project, issues: project.issues, title: project.name, page:'projectPage'})
+    console.log(_id, project, req.user)
+    res.render('projectPage', {project: project, author: req.user, issues: project.issues, title: project.name, page:'projectPage'})
     }
     catch(err){
         console.log('Error:', err)

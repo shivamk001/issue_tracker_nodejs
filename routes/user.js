@@ -6,11 +6,19 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 passport.use(new LocalStrategy(async function verify(username, password, done){
     try{
-        const user=await User.findOne({username})
+        const user=await User.findOne({username});
         console.log('User in LocalStrategy:', user, user.password)
         if(!user){ return done(null, false); }
-        if(user.password!=password){ return done(null, false);}
-        return done(null, user);
+        let result=await user.comparePassword(password);
+        console.log('Result in localstrategy:', result)
+        if(result){
+            console.log('redirect to /')
+            return done(null, user);
+        }
+        else{
+            console.log('redirect to /login')
+            return done(null, false);
+        }
     }
     catch(err){
         if(err){ return done(err); }
@@ -38,7 +46,7 @@ router.post('/create', userController.createUser)
 router.get('/login', userController.renderLogin)
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/login'
+    failureRedirect: '/user/login'
   }))//, userController.loginUser)
 
 router.get('/logout', userController.logoutUser);

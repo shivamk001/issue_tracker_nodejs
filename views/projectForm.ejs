@@ -7,7 +7,7 @@
         <section class="formContainer">
             <h1>Create Project</h1>
             <form class="form" action="/project/create" method="POST">
-                <input type="text" value="<%= author %>" name="author" hidden/>
+                <input type="text" value="<%= locals.user %>" name="author" hidden/>
                 <div class="inputContainer" style="height: 20%;">
                         <p for="projectFormName">Project Name:</p>
                         <input id="projectFormName" type="text" name="name" placeholder="Enter project name"/><br>

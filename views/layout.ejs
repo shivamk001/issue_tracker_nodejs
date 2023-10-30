@@ -17,16 +17,17 @@
                 <a href="/" 
                 style="color: <%= page=='home'? '#0049B0' : 'white' %>">
                 <i class="fa-solid fa-house" style="color: <%= page=='home'? '#0049B0' : 'white' %>"></i>&nbsp;Home</a>
-    
-                <a href="/project/create" 
-                style="color: <%= page=='projectForm'? '#0049B0' : 'white' %>">
-                <i class="fa-solid fa-plus" style="color: <%= page=='projectForm'? '#0049B0' : 'white' %>"></i>&nbsp;Create Project</a>
+                <% console.log('User in Layout:', author) %>
+                <% if(author!=undefined){ %>
+                    <a href="/project/create" 
+                    style="color: <%= page=='projectForm'? '#0049B0' : 'white' %>">
+                    <i class="fa-solid fa-plus" style="color: <%= page=='projectForm'? '#0049B0' : 'white' %>"></i>&nbsp;Create Project</a>
+                <% } %>
     
                 <a href=""><i class="fa-solid fa-filter"></i>&nbsp;Filter Project</a>
 
                 <a href=""><i class="fa-solid fa-folder"></i>&nbsp;Projects</a>
-                <% console.log("EJS:", locals.user) %>
-                <% if(locals.user===undefined){ %>
+                <% if(author==undefined){ %>
                     <a href="/user/login"
                     style="color: <%= page=='login'? '#0049B0' : 'white' %>">
                     <i class="fa-solid fa-right-to-bracket" style="color: <%= page=='login'? '#0049B0' : 'white' %>"></i>&nbsp;Login</a>
