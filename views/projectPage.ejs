@@ -3,47 +3,90 @@
 
 
 <section class="projectDetailsParentContainer">
-    <section class="projectPageSection">
-        <h3><a href="/project/page/<%= project.id %>"><%= project.name %></a></h3>
-        <p><b>Author:</b><%= project.author?project.author.username:'' %></p>
-        <p><b>Created At:</b><%= project.createdAt %></p>
-        <p><b>Description:</b><%= project.description %></p>
+    <section class="projectPageSection" id="projectPageSection">
+        <h3><%= project.name %></h3>
+        <div style="display: flex; justify-content: space-between;">
+            <p style="font-size: small;"><b>Author:</b><%= project.author?project.author.username:'' %></p> 
+            <p style="font-size: small;"><b>Created At:</b><%= project.createdAt %></p>
+        </div>
+        <p style="font-size: small;"><b>Description:</b><%= project.description %></p>
+
         <form action="/project/delete/<%= project.id %>" method="POST" style="display: flex; justify-content: center;">
             <input id="deleteButton" type="submit" value="Delete Project"/>
         </form>
-
-        <h4 style="text-align: left;">CREATE AN ISSUE</h4>
-        <form class="form" action="/issue/create" method="POST" style="width: 100%;">
-            <input type="text" name="project" value="<%= project.id %>" hidden/>
-            <input type="text" name="author" value="<%= author.id %>" hidden/>
-            <div class="inputContainer" style="height: 25%;">
-                    <p for="issueFormTitle">Title:</p>
-                    <input id="issueFormTitle" type="text" name="title" placeholder="Enter title"><br>
-            </div>
-            <div class="inputContainer">
-                    <p for="issueFormDescription">Description</p>
-                    <textarea id="issueFormDescription" type="text" name="description" placeholder="Enter description"></textarea><br>
-            </div>
-            <input type="submit" value="Submit issue">
-        </form>
-
     </section>
-    <section class="issueSection">
+    <section class="issueSection" id="issueSection">
         <div class="issueContainer">
-            <h4>ALL ISSUES</h4>
+            <div style="width:100%; display: flex; justify-content: space-between; align-items: center;">
+                <h4>ALL ISSUES</h4>
+                <div>
+                    <button style="background-color: white; border: 1px solid #1E3050; border-radius: 1.5rem; color: #1E3050; cursor: pointer;">
+                        <i class="fa-solid fa-magnifying-glass" style="color: #1E3050;"></i>
+                        Search
+                    </button>
+                    <button id="createIssueButton" style="background-color: white; border: 1px solid #0E8A16; border-radius: 1.5rem; color: #0E8A16; cursor: pointer;">
+                        <i class="fa-solid fa-plus" style="color: #0E8A16;"></i>
+                        Create Issue
+                    </button>
+                </div>
+
+                
+            </div>
             <% for(let issue of issues){ %>
                 <div class="issueCard">
                     <h3><a href="/issue/"><%= issue.title %></a></h3>
-                    <p><b>Author:</b><%= issue.author?issue.author.username:'' %></p><br>
+                    <div style="display: flex; justify-content: space-between;">
+                        <p><b>Author:</b><%= issue.author?issue.author.username:'' %></p><br>
+                        <p><b>Status:</b><%= issue.status%></p>
+                        <p><b>Created At:</b><%= issue.createdAt %></p><br>
+                    </div>
+
                     <p><b>Description:</b><%= issue.description %></p><br>
-                    <p><b>Status:</b><%= issue.status%></p>
-                    <p><b>Created At:</b><%= issue.createdAt %></p><br>
-                    
+
+                    <div class="labelsContainer">
+                        <% for(let label of issue.labels){ %>
+                            <div class="label" style="color: <%= label.color %>; background-color: <%= label.backgroundColor %>"><%= label.name %></div>
+                        <% } %>
+                    </div>
                 </div>
             <% } %>
             </div>
         
 
     </section>
+
+    <section id="createIssueFormSection">
+        <div style="width: 50%; height: 60%; background-color: lightgray; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
+            <div style="height: 10%; width: 100%; display: flex; justify-content: space-between;">
+                <h4>CREATE AN ISSUE</h4>
+                <button id="closeIssueFormButton"><i class="fa-solid fa-x"></i></button>
+            </div>
+            <form class="form" action="/issue/create" method="POST" style="width: 90%; height: 90%; background-color: white; margin-bottom: 5%;">
+                <input type="text" name="project" value="<%= project.id %>" hidden/>
+                <input type="text" name="author" value="<%= author.id %>" hidden/>
+                <div class="inputContainer" style="height: 25%;">
+                        <p for="issueFormTitle">Title:</p>
+                        <input id="issueFormTitle" type="text" name="title" placeholder="Enter title" required><br>
+                </div>
+                <div class="inputContainer">
+                        <p for="issueFormDescription">Description</p>
+                        <textarea id="issueFormDescription" type="text" name="description" placeholder="Enter description" required></textarea><br>
+                </div>
+                <div  class="inputContainer" >
+                    <p for="issueFormDescription">Labels:(Ctrl + click to select multiple)</p>
+                    <select name="labels" id="issueFormLabels" multiple required>
+                        <% for(let label of labels){ %>
+                            <option value="<%= label.id %>"><%= label.name %></option>
+                        <% } %>
+                    </select>
+                </div>
+                <input type="submit" value="Submit issue">
+            </form>
+        </div>
+       
+        
+
+    </section>
 </section>
 
+<script src="/js/projectPage.js"></script>

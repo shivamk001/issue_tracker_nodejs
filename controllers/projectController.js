@@ -2,6 +2,7 @@
 // const ObjectId=require('mongoose').ObjectId;
 const mongoose=require('mongoose');
 const Project=require('../models/project')
+const Label=require('../models/label')
 const {home}=require('./homeController')
 
 module.exports.allProjects=async ()=>{
@@ -61,10 +62,12 @@ module.exports.showProjectPage=async(req, res)=>{
     const project=await Project.findById({_id})
         .populate('author', 'username -_id')
         .populate({path: 'issues', populate: {path: 'author', select:'username -_id'}})
+        .populate({path: 'issues', populate: {path: 'labels'}})
         //.populate('issues.issue.author', 'username -_id');
-
-    console.log(_id, project, req.user)
-    res.render('projectPage', {project: project, author: req.user, issues: project.issues, title: project.name, page:'projectPage'})
+    const labels=await Label.find({}).select('name _id')
+    console.log("Project Page:", project.issues[0].labels.length)
+    // console.log("Label Page:", labels)
+    return res.render('projectPage', {project: project, labels: labels, author: req.user, issues: project.issues, title: project.name, page:'projectPage'})
     }
     catch(err){
         console.log('Error:', err)

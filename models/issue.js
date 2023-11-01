@@ -20,7 +20,7 @@ const IssueSchema=new mongoose.Schema({
         default:"inprogress",
         required:"true"
     },
-    labels:[String],
+    labels:[{type: mongoose.Schema.Types.ObjectId, ref:'Label'}],
     author:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

@@ -3,10 +3,23 @@ const Issue=require('../models/issue');
 const Project=require('../models/project')
 
 module.exports.createIssue=async (req, res)=>{
-    let {project, title, description, status, author}=req.body;
+    let {project, title, description, status, author, labels}=req.body;
     try{
+        console.log('Label in Issue Created:', labels)
         const issue=await Issue.create({project, title, description, status, author});
+        if(typeof labels=='string'){
+            issue.labels.push(new mongoose.Types.ObjectId(labels));
+        }
+        else{
+            labels.forEach(label=>{
+                issue.labels.push(new mongoose.Types.ObjectId(label));
+            })
+        }
+        issue.save()
+        //issue.populate({path: 'labels', populate: {path: 'label', select:'name -_id'}})
         console.log('Issue Created:', issue)
+
+
 
         let projectId= new mongoose.Types.ObjectId(project);
         const reqdProject=await Project.findById(projectId);

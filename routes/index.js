@@ -12,5 +12,6 @@ router.get('/', (req, res, next)=>{console.log('/'); next();}, homeController.ho
 router.use('/project', (req, res, next)=>{console.log('/project'); next();}, require('./project'));
 router.use('/issue', (req, res, next)=>{console.log('/issue'); next();}, require('./issue'));
 router.use('/user', (req, res, next)=>{console.log('/user'); next();}, require('./user'));
+router.use('/label', (req, res, next)=>{console.log('/label'); next();}, require('./label'));
 
 module.exports=router
