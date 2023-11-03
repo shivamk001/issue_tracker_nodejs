@@ -16,6 +16,8 @@ router.get('/all', (req, res, next)=>{console.log('/project/all'); next();}, pro
 
 router.get('/page/:id', projectController.showProjectPage)
 
+router.post('/page/:id', projectController.showProjectPage)
+
 router.post('/delete/:id', projectController.deleteProject)
 
 module.exports=router

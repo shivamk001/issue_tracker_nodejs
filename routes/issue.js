@@ -10,4 +10,6 @@ router.post('/create', (req, res, next)=>{
     next()
 }, issueController.createIssue);
 
+router.post('/')
+
 module.exports=router

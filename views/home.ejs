@@ -3,7 +3,14 @@
 
 
     <section class="projectContainer">
-        <h1>All Projects</h1>
+        <div style="width:100%; display: flex; flex-direction: row;">
+            <h1 style="width: 50%;">All Projects</h1>
+            <div style="width: 50%; display: flex; flex-direction: row; justify-content: flex-end; align-items: center; flex-wrap: wrap;">
+                <button id="createProjectButton" style="margin: 1%; width: auto; background-color: white; border: 1px solid #0E8A16;; border-radius: 1.5rem; color: #0E8A16;; cursor: pointer;"><i class="fa-solid fa-plus" style="color: #0E8A16;"></i>Create Project</button>
+                <button id="searchProjectButton" style="margin: 1%; width: auto; background-color: white; border: 1px solid #1E3050; border-radius: 1.5rem; color: #1E3050; cursor: pointer;"><i class="fa-solid fa-magnifying-glass" style="color: #1E3050;"></i>Search Project</button>
+            </div>
+        </div>
+        
         <% for(let project of projects){ %>
             <div class="projectCard">
                 <h3><a href="/project/page/<%= project.id %>"><%= project.name %></a></h3>
@@ -13,3 +20,32 @@
             </div>
         <% } %>
     </section>
+
+
+    <!-- CREATE PROJECT SECTION -->
+    <section id="createProjectFormSection">
+        <div style="width: 50%; height: auto; background-color: lightgray; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
+            <div style="height: 10%; width: 100%; display: flex; justify-content: space-between;">
+                <h1>Create Project</h1>
+                <button id="closeProjectFormButton"><i class="fa-solid fa-x"></i></button>
+            </div>
+            <form class="form" action="/project/create" method="POST" style="width: 90%; height: 90%; background-color: white; margin-bottom: 5%;">
+                <input type="text" value="<%= locals.user %>" name="author" hidden/>
+                <div class="inputContainer" style="height: 20%;">
+                        <p for="projectFormName">Project Name:</p>
+                        <input id="projectFormName" type="text" name="name" placeholder="Enter project name"/><br>
+                </div>
+                <div class="inputContainer">
+                        <p for="projectFormDesc">Description:</p>
+                        <textarea id="projectFormDesc" type="text" name="description" placeholder="Enter project description" textarea></textarea>
+                </div>
+                
+    
+                <input type="submit" placeholder="Submit" value="Submit" style="height: 15%; width: auto; padding: 1%;">
+            </form>
+        
+        </div>
+    </section>
+
+
+<script src="/js/homePage.js"></script>

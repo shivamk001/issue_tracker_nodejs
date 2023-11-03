@@ -34,3 +34,7 @@ module.exports.createIssue=async (req, res)=>{
         return res.status(404).json({error: err})
     }
 }
+
+module.exports.searchFilterIssues=async (req, res)=>{
+    
+}

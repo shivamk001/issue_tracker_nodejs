@@ -48,7 +48,16 @@ h4{
     margin-left: 1%;
 }
 
-
+.searchIssueDiv{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 95%;
+    height: 5%;
+    margin-bottom: 1%;
+}
 
 .issueCard{
     width: 90%;
@@ -86,7 +95,7 @@ h4{
 .labelsContainer{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
     margin: 1%;
 }
@@ -112,4 +121,50 @@ h4{
 
 #closeIssueFormButton{
     background-color: lightgray; border: none; cursor: pointer;
+}
+
+#searchSection{
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 12%;
+    height: 100%;
+    width: 88%;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4);
+}
+
+#filterSection{
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 12%;
+    height: 100%;
+    width: 88%;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4);
+}
+
+#closeFilterButton{
+    background-color: lightgray; border: none; cursor: pointer;
+}
+
+#closeSearchButton{
+    background-color: lightgray; border: none; cursor: pointer;
+}
+
+.labelButtons{
+    margin: 1%; padding: 1%; border: 1px solid black; cursor: pointer;
+}
+
+.authorButtons{
+    margin: 1%; padding: 1%; border: 1px solid #0081FF; cursor: pointer; color: #0081FF;
+}
+
+.labelButtonsChecked{
+    margin: 1%; padding: 1%; border: 1px solid black; cursor: pointer; background-color: black; color: white;
+}
+
+.authorButtonsChecked{
+    margin: 1%; padding: 1%; border: 1px solid #0081FF; cursor: pointer; background-color: #0081FF; color: white;
 }
