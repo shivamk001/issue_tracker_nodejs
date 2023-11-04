@@ -1,4 +1,9 @@
+const mongoose=require('mongoose')
 const User=require('../models/user')
+
+
+
+
 
 module.exports.renderSignup=async (req, res)=>{
     try{
@@ -9,6 +14,12 @@ module.exports.renderSignup=async (req, res)=>{
         return res.status(504).json(err)
     }
 }
+
+
+
+
+
+
 module.exports.createUser=async (req, res)=>{
     let {username, email, password, userType, confirmPassword}=req.body
     console.log('Signup:', username, email, password, userType, confirmPassword)
@@ -34,6 +45,8 @@ module.exports.createUser=async (req, res)=>{
 
 
 
+
+
 module.exports.renderLogin=async (req, res)=>{
     try{
         return res.render('loginForm', {page: 'login', title: 'Login', /*user: undefined*/})
@@ -43,6 +56,11 @@ module.exports.renderLogin=async (req, res)=>{
         return res.status(504).json(err)
     }
 }
+
+
+
+
+
 module.exports.loginUser=async (req, res)=>{
     try{
         return res.render('loginForm', {page: 'login', title: 'Login'})
@@ -53,9 +71,54 @@ module.exports.loginUser=async (req, res)=>{
     }
 }
 
+
+
+
+
 module.exports.logoutUser=(req, res, next)=>{
     req.logout(function(err){
         if(err){return next(err);}
         return res.redirect('/')
     })
+}
+
+
+
+
+
+module.exports.renderUserDetailsPage=async (req, res)=>{
+    try{
+        
+        let {username}=req.user
+        console.log('User:', req.user, username)
+        let user=await User.findOne({username})
+        console.log('User:', user)
+        return res.render('userDetailsPage', {page: 'userDetailsPage', author: req.user, user: user, title: 'My Account'})
+    }
+    catch(err){
+        console.log(err);
+        return res.status(504).json(err)
+    }
+}
+
+
+
+
+module.exports.updateUser=async (req, res)=>{
+    let {username, password}=req.body
+    console.log('Signup:', username, email, password, userType, confirmPassword)
+    try{
+        console.log('UpdateUser:', username, req.user.username)
+        if(req.user.username===username){
+            await User.findByIdAndUpdate({password})
+            return res.redirect('/')
+        }
+        else{
+            return res.status(404).json({error: err})
+        }
+    }
+    catch(err){
+        console.log('error:', err)
+        return res.status(404).json({error: err})
+    }
 }

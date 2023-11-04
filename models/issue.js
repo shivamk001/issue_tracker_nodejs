@@ -3,7 +3,7 @@ const mongoose=require('mongoose');
 const IssueSchema=new mongoose.Schema({
     project:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Issue'
+        ref: 'Project'
     },
     title:{
         type: String,

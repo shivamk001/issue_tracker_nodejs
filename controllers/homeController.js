@@ -3,12 +3,19 @@ let {allProjects}=require('./projectController')
 module.exports.home=async function(req, res){
 
     //get all user
-    let projects=await allProjects()
+    console.log('HOME REQ.BODY:', req.query)
+    let {name, description}=req.query
+    let query={}
+    if(name){
+        query.name=name
+    }
+    if(description){
+        query.description=description
+    }
+    console.log('QUERY:', query)
+    let projects=await allProjects(query)
     console.log('ALLProjects:', projects)
-    //print id(used virtuals to create a get function which returns id of a doc in string format)
-    // projects.forEach(project=>{
-    //     console.log(project.id)
-    // })
+
     if(req.user){
         console.log('REQ AFTER LOGIN:', req.user, req.session.passport)
     }

@@ -42,6 +42,8 @@ const userController=require('../controllers/userController')
 
 router.get('/signup', userController.renderSignup)
 router.post('/create', userController.createUser)
+router.post('/update', userController.updateUser)
+router.get('/userPage/:id', userController.renderUserDetailsPage)
 
 router.get('/login', userController.renderLogin)
 router.post('/login', passport.authenticate('local', {

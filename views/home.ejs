@@ -3,11 +3,15 @@
 
 
     <section class="projectContainer">
-        <div style="width:100%; display: flex; flex-direction: row;">
-            <h1 style="width: 50%;">All Projects</h1>
-            <div style="width: 50%; display: flex; flex-direction: row; justify-content: flex-end; align-items: center; flex-wrap: wrap;">
-                <button id="createProjectButton" style="margin: 1%; width: auto; background-color: white; border: 1px solid #0E8A16;; border-radius: 1.5rem; color: #0E8A16;; cursor: pointer;"><i class="fa-solid fa-plus" style="color: #0E8A16;"></i>Create Project</button>
-                <button id="searchProjectButton" style="margin: 1%; width: auto; background-color: white; border: 1px solid #1E3050; border-radius: 1.5rem; color: #1E3050; cursor: pointer;"><i class="fa-solid fa-magnifying-glass" style="color: #1E3050;"></i>Search Project</button>
+        <div style="width:100%; display: flex; flex-direction: row; justify-content: space-between;">
+            <h1 style="width: auto;">All Projects</h1>
+            <div style="width: 50%; display: flex; flex-direction: row; justify-content: flex-end; align-items: center; ">
+                <button id="resetButton" style="margin: 1%; width: auto; background-color: white; border: 1px solid #1E3050; border-radius: 1.5rem; color: #1E3050; cursor: pointer;">
+                    <a href="/"   style=" text-decoration: none;"><i class="fa-solid fa-rotate-right"></i>&nbsp;Reset</a></button>
+                <!-- <button id="createProjectButton" style="margin: 1%; width: auto; background-color: white; border: 1px solid #0E8A16;; border-radius: 1.5rem; color: #0E8A16;; cursor: pointer;">
+                    <i class="fa-solid fa-plus" style="color: #0E8A16;"></i>Create Project</button> -->
+                <button id="searchProjectButton" style="margin: 1%; width: auto; background-color: white; border: 1px solid #1E3050; border-radius: 1.5rem; color: #1E3050; cursor: pointer;">
+                    <i class="fa-solid fa-magnifying-glass" style="color: #1E3050;"></i>Search Project</button>
             </div>
         </div>
         
@@ -44,6 +48,32 @@
                 <input type="submit" placeholder="Submit" value="Submit" style="height: 15%; width: auto; padding: 1%;">
             </form>
         
+        </div>
+    </section>
+
+
+    <!-- SEARCH PROJECT SECTION -->
+    <section id="searchProjectFormSection">
+        <div style="width: 50%; height: auto; background-color: lightgray; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
+            <div style="height: 10%; width: 100%; display: flex; justify-content: space-between;">
+                <h1>Search Project</h1>
+                <button id="closeSearchProjectFormButton"><i class="fa-solid fa-x"></i></button>
+            </div>
+
+
+            <form class="form" action="/" method="GET" style="width: 90%; height: 90%; background-color: white; margin-bottom: 5%;">
+                <div class="inputContainer" style="height: 20%;">
+                        <h4 for="projectFormName">Project Name:</h4>
+                        <input id="projectFormName" type="text" name="name" placeholder="Enter project name"/><br>
+                </div>
+                <div class="inputContainer">
+                        <h4 for="projectFormDesc">Description:</h4>
+                        <textarea id="projectFormDesc" type="text" name="description" placeholder="Enter project description" textarea></textarea>
+                </div>
+                <input type="submit" placeholder="Submit" value="Submit" style="height: 15%; width: auto; padding: 1%;">
+            </form>
+        
+
         </div>
     </section>
 

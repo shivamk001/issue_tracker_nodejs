@@ -80,23 +80,24 @@
                 <button id="closeIssueFormButton"><i class="fa-solid fa-x"></i></button>
             </div>
             <form class="form" action="/issue/create" method="POST" style="width: 90%; height: 90%; background-color: white; margin-bottom: 5%;">
-                <input type="text" name="project" value="<%= project.id %>" hidden/>
+                <input type="text" name="project" value="<%= project._id %>" hidden/>
                 <input type="text" name="author" value="<%= author.id %>" hidden/>
                 <div class="inputContainer" style="height: 25%;">
-                        <p for="issueFormTitle">Title:</p>
+                        <h4 for="issueFormTitle">Title:</h4>
                         <input id="issueFormTitle" type="text" name="title" placeholder="Enter title" required><br>
                 </div>
                 <div class="inputContainer">
-                        <p for="issueFormDescription">Description</p>
+                        <h4 for="issueFormDescription">Description</h4>
                         <textarea id="issueFormDescription" type="text" name="description" placeholder="Enter description" required></textarea><br>
                 </div>
                 <div  class="inputContainer">
-                    <p for="issueFormDescription">Labels:(Ctrl + click to select multiple)</p>
-                    <select name="labels" id="issueFormLabels" multiple required>
+                    <h4 for="issueFormDescription">Labels:(Ctrl + click to select multiple)</h4>
+                    <div style="display: flex; flex-direction: row; flex-wrap: wrap; margin: 1%; width: 90%; overflow-y: scroll; ">
+                        <input id="createIssueFormLabelsInput" type="hidden" name="labels" value/>
                         <% for(let label of labels){ %>
-                            <option value="<%= label.id %>"><%= label.name %></option>
+                            <div data-value="<%= label.id %>" class="createIssueLabelButtons"><%= label.name %></div>
                         <% } %>
-                    </select>
+                    </div>
                 </div>
                 <input type="submit" value="Submit issue">
             </form>

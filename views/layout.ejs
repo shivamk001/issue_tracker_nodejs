@@ -24,9 +24,9 @@
                     <i class="fa-solid fa-plus" style="color: <%= page=='projectForm'? '#0049B0' : 'white' %>"></i>&nbsp;Create Project</a>
                 <% } %>
     
-                <a href=""><i class="fa-solid fa-filter"></i>&nbsp;Filter Project</a>
+                <!-- <a href=""><i class="fa-solid fa-filter"></i>&nbsp;Filter Project</a> -->
 
-                <a href=""><i class="fa-solid fa-folder"></i>&nbsp;Projects</a>
+
                 <% if(locals.author==undefined){ %>
                     <a href="/user/login"
                     style="color: <%= page=='login'? '#0049B0' : 'white' %>">
@@ -36,10 +36,14 @@
                     style="color: <%= page=='signup'? '#0049B0' : 'white' %>">
                     <i class="fa-solid fa-user-plus" style="color: <%= page=='signup'? '#0049B0' : 'white' %>"></i>&nbsp;Signup</a>
                 <% }else{ %>
-                    <a href="/user/logout"
-                    style="color: <%= page=='signup'? '#0049B0' : 'white' %>">
-                    <i class="fa-solid fa-left-to-line" style="color: <%= page=='login'? '#0049B0' : 'white' %>"></i>&nbsp;Logout</a>
-                <% } %>
+                    <a href="/project/userProjects/<%= locals.author.id %>" style="color: <%= page=='userProjects'? '#0049B0' : 'white' %>"><i class="fa-solid fa-folder"  style="color: <%= page=='userProjects'? '#0049B0' : 'white' %>"></i>&nbsp;My Projects</a>
+                    
+                    <a href="/issue/userIssues/<%= locals.author.id %>" style="color: <%= page=='userIssues'? '#0049B0' : 'white' %>"><i class="fa-solid fa-bugs" style="color: <%= page=='userIssues'? '#0049B0' : 'white' %>"></i>&nbsp;My Issues</a>
+                    
+                    <a href="/user/userPage/<%= locals.author.id %>" style="color: <%= page=='userDetailsPage'? '#0049B0' : 'white' %>"><i class="fa-solid fa-user" style="color: <%= page=='userDetailsPage'? '#0049B0' : 'white' %>"></i>&nbsp;<%= locals.author.username %></a>
+                    
+                    <a href="/user/logout" style="color: <%= page=='signup'? '#0049B0' : 'white' %>"><i class="fa-solid fa-right-from-bracket" style="color: <%= page=='login'? '#0049B0' : 'white' %>"></i>&nbsp;Logout</a>
+                    <% } %>
             </div>
         </section>
 

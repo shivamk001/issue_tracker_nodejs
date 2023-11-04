@@ -1,0 +1,42 @@
+<title>My Issues</title>
+
+
+<section class="projectDetailsParentContainer">
+    <section class="issueSection" id="issueSection">
+        <div class="issueContainer">
+            <div style="width:100%; display: flex; justify-content: space-between; align-items: center;">
+                <h4>ALL MY ISSUES</h4>
+            </div>
+    
+            <% for(let issue of allIssues){ %>
+                    <div class="issueCard">
+                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                            <h3><a href="/issue/"><%= issue.title %></a></h3>
+                            <div>
+                                <button class="deleteIssueButton" data-id="<%= issue._id %>"><i class="fa-solid fa-trash" style="color: red;"></i></button>
+                                <button class="editIssueButton" data-id="<%= issue._id %>"><i class="fa-solid fa-pen" style="color: #1E3050;"></i></button>
+                            </div>
+                            
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between;">
+                            <p><b>Project:</b><%= issue.project.name %></p><br>
+                            <p><b>Status:</b><%= issue.status%></p>
+                            <p><b>Created At:</b><%= issue.createdAt %></p><br>
+                        </div>
+    
+                        <p><b>Description:</b><%= issue.description %></p><br>
+    
+                        <div class="labelsContainer">
+                            <% for(let label of issue.labels){ %>
+                                <div class="label" style="color: <%= label.color %>; background-color: <%= label.backgroundColor %>"><%= label.name %></div>
+                            <% } %>
+                        </div>
+                    </div>
+            <% } %>
+        </div>
+    </section>
+</section>
+
+
+<script src="/js/allMyIssues.js"></script>

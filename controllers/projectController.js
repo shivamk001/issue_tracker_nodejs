@@ -7,10 +7,10 @@ const User=require('../models/user')
 const Issue=require('../models/issue')
 const {home}=require('./homeController')
 
-module.exports.allProjects=async ()=>{
+module.exports.allProjects=async (query)=>{
     try{
-        console.log('All Projects:')
-        const projects=await Project.find({}).populate('author', 'username -_id')
+        console.log('All Projects:', query)
+        const projects=await Project.find(query).populate('author', 'username -_id')
         console.log('All Projects:', projects)
         return projects
     }
@@ -38,7 +38,7 @@ module.exports.createProject=async (req, res)=>{
 
 module.exports.renderCreateProject=(req, res)=>{
     console.log('User in renderCreateProject:', req.user.id)
-    return res.render('projectForm', { title: 'Create Project', page: 'projectForm', user: req.user.id })
+    return res.render('projectForm', { title: 'Create Project', page: 'projectForm', author: req.user, user: req.user.id })
 }
 
 module.exports.getAllProjects=async (req, res)=>{
@@ -124,3 +124,20 @@ module.exports.deleteProject=async(req, res)=>{
         return res.status(404).json({error: err})
     }
 }
+
+module.exports.getUserProjects=async (req, res)=>{
+    try{
+        console.log('Get User Projects:', req.params.id)
+        let query={author: req.params.id}
+        const allProjects=await Project.find(query).populate('author', 'username -_id')
+        console.log('All Projects:', allProjects)
+
+        //return res.status(200).json(allProjects)
+        return res.render('allMyProjects', {allMyProjects: allProjects, page: 'userProjects', author: req.user})
+    }
+    catch(err){
+        console.log('Error:', err)
+        return res.status(404).json({error: err})
+    }
+}
+ 

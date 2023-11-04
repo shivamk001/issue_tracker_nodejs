@@ -18,6 +18,13 @@ router.get('/page/:id', projectController.showProjectPage)
 
 router.post('/page/:id', projectController.showProjectPage)
 
+router.get('/userProjects/:id', (req, res, next)=>{
+    console.log(req.params)
+    //return res.render('home', {title: 'IssueTrackerHome', projects});
+    // return res.send('POST request received')
+    next()
+}, projectController.getUserProjects)
+
 router.post('/delete/:id', projectController.deleteProject)
 
 module.exports=router

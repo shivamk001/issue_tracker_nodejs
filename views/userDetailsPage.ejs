@@ -1,0 +1,28 @@
+<title><%= title %></title>
+<link rel="stylesheet" href="/css/projectForm.css"/>
+
+
+
+        <section class="formContainer">
+            <h1>User Form</h1>
+            <form class="form" action="/user/create" method="POST">
+                <input hidden type="text" name="userType" value="regular"/>
+                <div class="inputContainer" style="height: 20%;">
+                        <p for="username">Username:</p>
+                        <input id="username" type="text" name="username" value="<%= user.username %>" placeholder="Enter username" disabled/><br>
+                </div>
+
+                <div class="inputContainer" style="height: 20%;">
+                        <p for="email">Email:</p>
+                        <input id="email" type="email" name="email" value="<%= user.email %>" placeholder="Enter Email" disabled/><br>
+                </div>
+
+                <div class="inputContainer" style="height: 20%;">
+                        <p for="password">Password:</p>
+                        <input id="password" type="password" name="password" value="<%= user.password %>" placeholder="Enter password"/>
+                </div>
+
+                
+                <input type="submit" placeholder="Submit" value="Submit"/>
+            </form>
+        </section>

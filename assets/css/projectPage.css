@@ -84,10 +84,13 @@ h4{
 #deleteButton{
     height: 10%;
     border: none;
-    background-color: #DC4C64;
-    color: white;
-    width: 25%;
+    background-color: white;
+    color: #DC4C64;
+    border: 1px solid #DC4C64;
+    border-radius: 1.5rem;
+    width: auto;
     cursor: pointer;
+    padding: 1%;
 }
 
 
@@ -157,13 +160,24 @@ h4{
     margin: 1%; padding: 1%; border: 1px solid black; cursor: pointer;
 }
 
+.labelButtonsChecked{
+    margin: 1%; padding: 1%; border: 1px solid black; cursor: pointer; background-color: black; color: white;
+}
+
+.createIssueLabelButtons{
+    margin: 1%; padding: 1%; border: 1px solid black; cursor: pointer;
+}
+
+.createIssueLabelButtonsChecked{
+    margin: 1%; padding: 1%; border: 1px solid black; cursor: pointer; background-color: black; color: white;
+}
+
+
 .authorButtons{
     margin: 1%; padding: 1%; border: 1px solid #0081FF; cursor: pointer; color: #0081FF;
 }
 
-.labelButtonsChecked{
-    margin: 1%; padding: 1%; border: 1px solid black; cursor: pointer; background-color: black; color: white;
-}
+
 
 .authorButtonsChecked{
     margin: 1%; padding: 1%; border: 1px solid #0081FF; cursor: pointer; background-color: #0081FF; color: white;

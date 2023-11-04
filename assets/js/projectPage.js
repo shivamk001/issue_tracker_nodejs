@@ -183,3 +183,59 @@ filterIssueForm.reset()
 //clear issue search form
 let searchIssueForm=document.getElementById('searchIssueForm')
 searchIssueForm.reset()
+
+
+
+
+
+
+
+
+
+
+
+//label buttons in create issue form
+let createIssueFormLabelsInput=document.getElementById('createIssueFormLabelsInput');
+let allCreateIssueLabelButtons=document.querySelectorAll('.createIssueLabelButtons')
+//on clicking on a label in search issue form
+function handleClickLabelCreate(e){
+    let element=e.target
+    console.log("Button:", element)
+    let isChecked=element.getAttribute('checked')=='true'?true:false
+    let labelName=element.textContent
+    let labelValue=element.getAttribute('data-value')
+    if(isChecked){
+        //change class
+        element.setAttribute('checked', false)
+        element.classList.remove('createIssueLabelButtonsChecked')
+        element.classList.add('createIssueLabelButtons')
+
+        //remove from input
+        let selectedLabelsArr=createIssueFormLabelsInput.value.split(',').slice(0, -1)
+        let newVal=[]
+        selectedLabelsArr.forEach(label=>{
+            let name=label.split('|')[0]
+            if(name!=labelName){
+                newVal.push(label)
+            }
+        })
+        createIssueFormLabelsInput.value=newVal
+        console.log('createIssueFormLabelsInput Value after removing:', createIssueFormLabelsInput.value)
+    }
+    else{
+        //add to input
+        element.setAttribute('checked', true)
+        element.classList.add('createIssueLabelButtonsChecked')
+        element.classList.remove('createIssueLabelButtons')
+        let val=createIssueFormLabelsInput.value
+        if(val.length==0){
+            console.log('Element Value:', labelName)
+            createIssueFormLabelsInput.value=''
+        }
+        createIssueFormLabelsInput.value+=labelName+'|'+labelValue+','
+        console.log('createIssueFormLabelsInput Value after adding:', createIssueFormLabelsInput.value)
+    }
+}
+allCreateIssueLabelButtons.forEach(labelButton=>{
+    labelButton.addEventListener('click', handleClickLabelCreate)
+})
