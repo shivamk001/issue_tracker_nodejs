@@ -15,6 +15,9 @@ module.exports.home=async function(req, res){
     console.log('QUERY:', query)
     let projects=await allProjects(query)
     console.log('ALLProjects:', projects)
+    projects.forEach(project=>{
+        console.log('Project Length:', project.issues.length)
+    })
 
     if(req.user){
         console.log('REQ AFTER LOGIN:', req.user, req.session.passport)
