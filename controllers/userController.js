@@ -10,8 +10,9 @@ module.exports.renderSignup=async (req, res)=>{
         return res.render('signupForm', {page: 'signup', title: 'signup'})
     }
     catch(err){
-        console.log(err);
-        return res.status(504).json(err)
+        // console.log(err);
+        // return res.status(504).json(err)
+        next(err)
     }
 }
 
@@ -37,8 +38,9 @@ module.exports.createUser=async (req, res)=>{
         }
     }
     catch(err){
-        console.log('error:', err)
-        return res.status(200).json({error: err})
+        // console.log('error:', err)
+        // return res.status(200).json({error: err})
+        next(err)
     }
 }
 
@@ -52,8 +54,9 @@ module.exports.renderLogin=async (req, res)=>{
         return res.render('loginForm', {page: 'login', title: 'Login', /*user: undefined*/})
     }
     catch(err){
-        console.log(err);
-        return res.status(504).json(err)
+        // console.log(err);
+        // return res.status(504).json(err)
+        next(err)
     }
 }
 
@@ -66,8 +69,9 @@ module.exports.loginUser=async (req, res)=>{
         return res.render('loginForm', {page: 'login', title: 'Login'})
     }
     catch(err){
-        console.log(err);
-        return res.status(504).json(err)
+        // console.log(err);
+        // return res.status(504).json(err)
+        next(err)
     }
 }
 
@@ -96,8 +100,9 @@ module.exports.renderUserDetailsPage=async (req, res)=>{
         return res.render('userDetailsPage', {page: 'userDetailsPage', author: req.user, user: user, title: 'My Account'})
     }
     catch(err){
-        console.log(err);
-        return res.status(504).json(err)
+        // console.log(err);
+        // return res.status(504).json(err)
+        next(err)
     }
 }
 
@@ -118,7 +123,8 @@ module.exports.updateUser=async (req, res)=>{
         }
     }
     catch(err){
-        console.log('error:', err)
-        return res.status(404).json({error: err})
+        // console.log('error:', err)
+        // return res.status(404).json({error: err})
+        next(err)
     }
 }

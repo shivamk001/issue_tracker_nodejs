@@ -38,7 +38,7 @@
                 <% }else{ %>
                     <a href="/project/userProjects/<%= locals.author.id %>" style="color: <%= page=='userProjects'? '#0049B0' : 'white' %>"><i class="fa-solid fa-folder"  style="color: <%= page=='userProjects'? '#0049B0' : 'white' %>"></i>&nbsp;My Projects</a>
                     
-                    <a href="/issue/userIssues/<%= locals.author.id %>" style="color: <%= page=='userIssues'? '#0049B0' : 'white' %>"><i class="fa-solid fa-bugs" style="color: <%= page=='userIssues'? '#0049B0' : 'white' %>"></i>&nbsp;My Issues</a>
+                    <a href="/issue/userIssues/<%= locals.author.id %>" style="color: <%= page=='userIssues'? '#0049B0' : 'white' %>"><i class="fa-regular fa-circle-dot" style="color: <%= page=='userIssues'? '#0049B0' : 'white' %>"></i>&nbsp;My Issues</a>
                     
                     <a href="/user/userPage/<%= locals.author.id %>" style="color: <%= page=='userDetailsPage'? '#0049B0' : 'white' %>"><i class="fa-solid fa-user" style="color: <%= page=='userDetailsPage'? '#0049B0' : 'white' %>"></i>&nbsp;<%= locals.author.username %></a>
                     

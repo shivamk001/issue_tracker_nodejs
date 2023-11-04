@@ -10,7 +10,8 @@ module.exports.createLabel=async (req, res)=>{
         return res.status(201).json(label)
     }
     catch(err){
-        console.log('Error in creating label:', err)
-        return res.status(400).json({error: err})
+        // console.log('Error in creating label:', err)
+        // return res.status(400).json({error: err})
+        next(err)
     }
 }

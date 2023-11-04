@@ -32,14 +32,11 @@ module.exports.createIssue=async (req, res)=>{
         return res.redirect(`/project/page/${project}`)
     }
     catch(err){
-        console.log('Error in creating issue:', err)
-        return res.status(404).json({error: err})
+        next(err)
     }
 }
 
-module.exports.searchFilterIssues=async (req, res)=>{
-    
-}
+
 
 module.exports.getUserIssues=async (req, res)=>{
     let {id}=req.params;
@@ -51,8 +48,8 @@ module.exports.getUserIssues=async (req, res)=>{
         //return res.status(200).json(allIssues)
     }
     catch(err){
-        console.log('Err:', err)
-        return res.status(404).json(err)
+        // console.log('Err:', err)
+        // return res.status(404).json(err)
     }
 }
 
@@ -79,8 +76,9 @@ module.exports.deleteIssue=async (req, res)=>{
         return res.status(200).json(deletedIssue)
     }
     catch(err){
-        console.log('Err:', err)
-        return res.status(404).json(err)
+        // console.log('Err:', err)
+        // return res.status(404).json(err)
+        next(err)
     }
 
 }

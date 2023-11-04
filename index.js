@@ -41,6 +41,11 @@ app.use(passport.authenticate('session'));
 
 app.use('/',  require('./routes'))
 
+
+app.use((err, req, res, next)=>{
+    return res.render('errorsPage', {message: err.message, statusCode: 500, page:'error'})
+})
+
 app.listen(port, function(err){
     if(err){
         console.log(err);

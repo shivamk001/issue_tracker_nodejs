@@ -130,7 +130,8 @@ module.exports.deleteProject=async(req, res)=>{
         return res.redirect('/')
     }
     catch(err){
-        return res.status(404).json({error: err})
+        // return res.status(404).json({error: err})
+        next(err)
     }
 }
 
@@ -145,8 +146,9 @@ module.exports.getUserProjects=async (req, res)=>{
         return res.render('allMyProjects', {allMyProjects: allProjects, page: 'userProjects', author: req.user})
     }
     catch(err){
-        console.log('Error:', err)
-        return res.status(404).json({error: err})
+        // console.log('Error:', err)
+        // return res.status(404).json({error: err})
+        next(err)
     }
 }
  
