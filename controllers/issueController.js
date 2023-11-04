@@ -61,7 +61,20 @@ module.exports.deleteIssue=async (req, res)=>{
     try{
         console.log('ID:', id)
         let _id=new mongoose.Types.ObjectId(id);
-        let deletedIssue=await Issue.findByIdAndDelete({_id});
+        
+        //get the document
+        let issue=await Issue.findById({_id});
+        
+        //get the project
+        let projectId=issue.project
+        let project=await Project.findById(projectId);
+
+        //delete the issue from the project
+        project.issues.remove(id);
+        project.save()
+
+        //delete the issue
+        let deletedIssue=await Issue.findByIdAndDelete(_id);
         console.log('Deleted Issue:', deletedIssue)
         return res.status(200).json(deletedIssue)
     }

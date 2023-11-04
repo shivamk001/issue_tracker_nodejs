@@ -116,6 +116,15 @@ module.exports.deleteProject=async(req, res)=>{
     try{
         let _id= new mongoose.Types.ObjectId(id);
         //let _id=new ObjectId(id);
+        let project=await Project.findById(_id);
+        // project.issues.forEach(async (issue)=>{
+        //     console.log('Issue:', issue)
+        //     let issueId=new mongoose.Types.ObjectId(issue);
+        //     let deletedIssue=await Issue.findByIdAndDelete(issueId);
+        //     console.log('Deleted Issue:', deleteIssue)
+        // })
+        let deletedIssues=await Issue.deleteMany({_id:{$in:project.issues}});
+        console.log('Deleted Issues:', deletedIssues);
         const deletedProject=await Project.findByIdAndDelete(_id);
         console.log("deleted:", _id, deletedProject)
         return res.redirect('/')
