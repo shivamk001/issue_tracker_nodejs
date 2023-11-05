@@ -39,18 +39,20 @@ passport.deserializeUser(function(user, cb) {
 });
 
 const userController=require('../controllers/userController')
+const isAuthenticated=require('../utilities/isAuthenticated')
 
 router.get('/signup', userController.renderSignup)
 router.post('/create', userController.createUser)
-router.post('/update', userController.updateUser)
-router.get('/userPage/:id', userController.renderUserDetailsPage)
-
 router.get('/login', userController.renderLogin)
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/user/login'
   }))//, userController.loginUser)
 
+
+router.use(isAuthenticated)
+router.post('/update', userController.updateUser)
+router.get('/userPage/:id', userController.renderUserDetailsPage)
 router.get('/logout', userController.logoutUser);
 
 
