@@ -1,6 +1,10 @@
 const express=require('express')
 const path=require('path')
+const passport=require('passport');
+const session=require('express-session')
+const MongoStore=require('connect-mongo')
 const expressLayouts=require('express-ejs-layouts')
+const flash = require('connect-flash');
 const port=8000
 
 const app=express()
@@ -23,11 +27,7 @@ app.set('layout extractStyles', true)
 require('./config/mongoose')
 
 //passport
-const passport=require('passport');
-const session=require('express-session')
-
-const MongoStore=require('connect-mongo')
-
+//session
 app.use(session({
     secret:'paplesh mahashay',
     resave: false,
@@ -37,7 +37,7 @@ app.use(session({
     })
 }))
 app.use(passport.authenticate('session'));
-
+app.use(flash());
 
 app.use('/',  require('./routes'))
 

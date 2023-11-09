@@ -31,6 +31,7 @@ module.exports.createUser=async (req, res)=>{
             })
             
             console.log('User created:', user)
+            req.flash('info', 'User created successfully!')
             return res.redirect('/user/login')
         }
         else{
@@ -66,6 +67,7 @@ module.exports.renderLogin=async (req, res)=>{
 
 module.exports.loginUser=async (req, res)=>{
     try{
+        console.log('Flash Message:', req.flash('info'))
         return res.render('loginForm', {page: 'login', title: 'Login'})
     }
     catch(err){

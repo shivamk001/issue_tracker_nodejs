@@ -1,0 +1,44 @@
+<title>My Comments</title>
+
+
+<section class="projectDetailsParentContainer">
+    <section class="issueSection" id="commentSection">
+        <div class="issueContainer" id="commentContainer">
+            <div style="width:100%; display: flex; justify-content: space-between; align-items: center;">
+                <h4>ALL MY COMMENTS</h4>
+            </div>
+    
+            <% for(let comment of allComments){ %>
+                <% let commentCreatedAt=new Date(comment.createdAt) %>
+                <% const options = {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    timeZoneName: "short"
+                  }; %>
+                <% let commentFomattedDate=commentCreatedAt.toLocaleDateString('en-US', options) %>
+                    <div class="issueCard" id="<%= comment._id %>">
+                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                            <h3><%= comment.comment %></h3>
+                            <div>
+                                <button class="deleteCommentButton" data-id="<%= comment._id %>"><i class="fa-solid fa-trash" style="color: red;"></i></button>
+                            </div>
+                            
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between;">
+                            <p><b>Project:</b><%= comment.issue.project.name %></p><br>
+                            <p><b>Issue:</b><%= comment.issue.title %></p>
+                            <p><b>Created At:</b><%= commentFomattedDate %></p><br>
+                        </div>
+                    </div>
+            <% } %>
+        </div>
+    </section>
+</section>
+
+
+<script src="/js/allMyComments.js"></script>

@@ -239,3 +239,42 @@ function handleClickLabelCreate(e){
 allCreateIssueLabelButtons.forEach(labelButton=>{
     labelButton.addEventListener('click', handleClickLabelCreate)
 })
+
+
+
+
+
+
+
+
+
+
+//EDIT COMMENT SECTION
+let editCommentButtons=document.querySelectorAll('.commentEditButton');
+let editCommentFormSection=document.getElementById('editCommentFormSection');
+let closeEditCommentButton=document.getElementById('closeEditCommentButton');
+let editCommentText=document.getElementById('editCommentText');
+let editCommentId=document.getElementById('editCommentId');
+
+function closeEditCommentForm(){
+    editCommentFormSection.style.display='none'
+}
+closeEditCommentButton.addEventListener('click', closeEditCommentForm)
+
+function displayEditCommentForm(e){
+    let currentElement=e.currentTarget
+    //console.log('Current Element:', e.target, e.currentTarget)
+    editCommentText.value=currentElement.getAttribute('data-comment')
+    editCommentId.value=currentElement.getAttribute('data-id')
+    console.log(editCommentText.value, editCommentId.value)
+    console.log('In displayEditCommentForm')
+    editCommentFormSection.style.display='flex'
+    editCommentFormSection.style.flexDirection='row'
+    editCommentFormSection.style.alignItems='center'
+    editCommentFormSection.style.justifyContent='center'
+    editCommentFormSection.style.zIndex=1000
+}
+
+editCommentButtons.forEach(button=>{
+    button.addEventListener('click', displayEditCommentForm)
+})

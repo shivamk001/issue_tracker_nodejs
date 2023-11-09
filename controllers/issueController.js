@@ -1,6 +1,7 @@
 const mongoose=require('mongoose');
 const Issue=require('../models/issue');
-const Project=require('../models/project')
+const Project=require('../models/project');
+const Comment=require('../models/comment');
 
 module.exports.createIssue=async (req, res)=>{
     let {project, title, description, status, author, labels}=req.body;
@@ -70,6 +71,10 @@ module.exports.deleteIssue=async (req, res)=>{
         project.issues.remove(id);
         project.save()
 
+        //delete all the comments with this issue
+        let deletedComment=await Comment.deleteMany({issue: issue._id})
+        console.log('Deleted Comments:', deletedComment);
+        
         //delete the issue
         let deletedIssue=await Issue.findByIdAndDelete(_id);
         console.log('Deleted Issue:', deletedIssue)

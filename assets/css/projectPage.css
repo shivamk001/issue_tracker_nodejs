@@ -118,3 +118,22 @@ h4{
 .createIssueLabelButtonsChecked{
     margin: 1%; padding: 1%; border: 1px solid black; cursor: pointer; background-color: black; color: white;
 }
+
+
+
+
+#editCommentFormSection{
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 12%;
+    height: 100%;
+    width: 88%;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4);
+}
+
+
+#closeEditCommentButton{
+    background-color: lightgray; border: none; cursor: pointer;
+}

@@ -11,9 +11,18 @@
 <!-- PROJECT DETAILS SECTION -->
     <section class="projectPageSection" id="projectPageSection">
         <h3><%= project.name %></h3>
+        <% let projectCreatedAt=new Date(project.createdAt) %>
+        <% const options = {
+            year: "numeric",
+            month: "numeric",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          }; %>
+        <% let projectFormattedDate=projectCreatedAt.toLocaleDateString('en-US', options) %>
         <div style="display: flex; justify-content: space-between;">
             <p style="font-size: small;"><b>Author:</b><%= project.author?project.author.username:'' %></p> 
-            <p style="font-size: small;"><b>Created At:</b><%= project.createdAt %></p>
+            <p style="font-size: small;"><b>Created At:</b><%= projectFormattedDate %></p>
         </div>
         <p style="font-size: small;"><b>Description:</b><%= project.description %></p>
 
@@ -45,17 +54,58 @@
             </div>
 
             <% for(let issue of issues){ %>
+                <% let issueCreatedAt=new Date(issue.createdAt) %>
+                <% const options = {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  }; %>
+                <% let issueFomattedDate=issueCreatedAt.toLocaleDateString('en-US', options) %>
                 <% if(issue.author && issue.labels.length>0 ){ %>
                     <div class="issueCard">
-                        <h3><a href="/issue/"><%= issue.title %></a></h3>
-                        <div style="display: flex; justify-content: space-between;">
-                            <p><b>Author:</b><%= issue.author?issue.author.username:'' %></p><br>
-                            <p><b>Status:</b><%= issue.status%></p>
-                            <p><b>Created At:</b><%= issue.createdAt %></p><br>
+                        <h3 style="margin: 1% 1% 0% 1%;"><%= issue.title %></h3>
+                        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; margin: 1% 1% 0% 1%;">
+                            <p style="margin: 0;"><b>Author:</b><%= issue.author?issue.author.username:'' %></p><br>
+                            <p style="margin: 0;"><b>Status:</b><%= issue.status%></p>
+                            <p style="margin: 0;"><b>Created At:</b><%= issueFomattedDate %></p><br>
                         </div>
 
-                        <p><b>Description:</b><%= issue.description %></p><br>
+                        <p style="margin: 1% 1% 0% 1%;"><b>Description:</b><%= issue.description %></p><br>
+                        <p style="margin: 1% 1% 0% 1%;"><b>Comments:</b></h4>
 
+                        <div class="commentContainer">
+                                <% for(let comment of issue.comments){ %>
+                                    <% let commentCreatedAt=new Date(comment.createdAt) %>
+                                    <% const options = {
+                                        year: "numeric",
+                                        month: "2-digit",
+                                        day: "numeric",
+                                        hour: "2-digit",
+                                        minute: "2-digit"
+                                      }; %>
+                                    <% let commentFomattedDate=commentCreatedAt.toLocaleDateString('en-US', options) %>
+                                    <div class="commentCard">
+                                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                                            <p style="margin: 0%;"><b><%= comment.author.username %></b><small style="margin: 5px;"><%= commentFomattedDate %></small><b>:</b></p>
+                                            <button class="commentEditButton" data-id="<%= comment._id %>" data-comment="<%= comment.comment%>" style="cursor: pointer;"><i class="fa-solid fa-pen"></i></button>
+                                        </div>
+                                        <div>
+                                            <p style="word-break: break-all;"><%= comment.comment %></p><br>
+                                        </div>
+
+                                    </div>
+                                <% } %>
+                        </div>
+                        <form action="/comment/create" method="POST" style="width: auto; height: auto; background-color: white; margin: 1% 1% 0% 1%;">
+                            <input type="text" name="project" value="<%= project._id %>" hidden/>
+                            <input  type="text" name="issue" value="<%= issue._id %>" hidden/>
+                            <div style="display: flex; flex-direction:row; margin: 1%;">
+                                <input type="text" name="comment" placeholder="Write Comment" style="width: 85%; padding: 1%;">
+                                <input type="submit" value="Comment" style="background-color: black; color: white; width: 15%; cursor: pointer;">
+                            </div>
+                        </form>
                         <div class="labelsContainer">
                             <% for(let label of issue.labels){ %>
                                 <div class="label" style="color: <%= label.color %>; background-color: <%= label.backgroundColor %>"><%= label.name %></div>
@@ -72,7 +122,7 @@
 
 
 
-    <!-- CREATE SECTION -->
+    <!-- CREATE ISSUE SECTION -->
     <section id="createIssueFormSection">
         <div style="width: 50%; height: 60%; background-color: lightgray; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
             <div style="height: 10%; width: 100%; display: flex; justify-content: space-between;">
@@ -102,9 +152,6 @@
                 <input type="submit" value="Submit issue">
             </form>
         </div>
-       
-        
-
     </section>
 
 
@@ -113,7 +160,7 @@
 
 
 
-    <!-- SEARCH SECTION -->
+    <!-- SEARCH ISSUE SECTION -->
     <section id="searchSection">
         <div style="width: 50%; height: auto; background-color: lightgray; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
             <div style="height: 10%; width: 100%; display: flex; justify-content: space-between;">
@@ -185,3 +232,21 @@
 </section>
 
 <script src="/js/projectPage.js"></script>
+
+
+
+<!-- EDIT COMMENT SECTION -->
+<section id="editCommentFormSection">
+        <div style="width: 50%; height: auto; background-color: lightgray; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
+            <div style="height: 10%; width: 100%; display: flex; justify-content: space-between;">
+                <h4>EDIT COMMENT</h4>
+                <button id="closeEditCommentButton" style="cursor: pointer;"><i class="fa-solid fa-x"></i></button>
+            </div>
+            <form action="/comment/edit" method="POST" style="width: 90%; height: auto; background-color: lightgray; margin: 5px; margin-bottom: 1%; display: flex; flex-direction: column; align-items: center;">
+                    <input id="editCommentId" type="text" name="id" hidden/>
+                    <input type="text" name="projectId" value="<%= project._id %>" hidden/>
+                    <textarea id="editCommentText" type="text" name="comment" placeholder="Write Comment" style="width: 100%; padding: 1%; margin: 1%;"></textarea>
+                    <input type="submit" value="Comment" style="background-color: black; color: white; width: auto; cursor: pointer; padding: 1%;">
+            </form>
+        </div>
+</section>

@@ -9,7 +9,7 @@
             </div>
     
             <% for(let issue of allIssues){ %>
-                    <div class="issueCard">
+                    <div class="issueCard" id="<%= issue._id %>">
                         <div style="display: flex; flex-direction: row; justify-content: space-between;">
                             <h3><a href="/issue/"><%= issue.title %></a></h3>
                             <div>

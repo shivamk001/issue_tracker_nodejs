@@ -18,7 +18,7 @@ module.exports.home=async function(req, res){
         projects.forEach(project=>{
             console.log('Project Length:', project.issues.length)
         })
-
+        console.log('User in homeController:', req.user)
         if(req.user){
             console.log('REQ AFTER LOGIN:', req.user, req.session.passport)
         }

@@ -5,6 +5,7 @@ const Project=require('../models/project')
 const Label=require('../models/label')
 const User=require('../models/user')
 const Issue=require('../models/issue')
+const Comment=require('../models/comment')
 const {home}=require('./homeController')
 
 module.exports.allProjects=async (query)=>{
@@ -96,6 +97,16 @@ module.exports.showProjectPage=async(req, res)=>{
         .populate('author', 'username -_id')
         .populate({path: 'issues',  populate: {path: 'author', select:'username -_id',  match: authorMatch}})
         .populate({path: 'issues', populate: {path: 'labels', match: labelMatch}, match: titleDescriptionMatch})
+        .populate({path: 'issues', populate: {path: 'comments', populate: {path: 'author', select:'username -_id',}}})
+
+
+    project.issues.forEach(issue=>{
+        console.log('Comments:', issue.comments)
+        issue.comments.forEach(comment=>{
+            console.log('DATE:', comment.createdAt)
+        })
+    })
+    
 
     const labelss=await Label.find({}).select('name _id')
     const Users=await User.find({}).select('username -_id')
@@ -123,6 +134,9 @@ module.exports.deleteProject=async(req, res)=>{
         //     let deletedIssue=await Issue.findByIdAndDelete(issueId);
         //     console.log('Deleted Issue:', deleteIssue)
         // })
+        project.issues.forEach(async issue=>{
+            await Comment.deleteMany({'issue': issue._id })
+        })
         let deletedIssues=await Issue.deleteMany({_id:{$in:project.issues}});
         console.log('Deleted Issues:', deletedIssues);
         const deletedProject=await Project.findByIdAndDelete(_id);
