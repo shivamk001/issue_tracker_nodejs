@@ -30,3 +30,33 @@ async function deleteIssue(e){
 deleteIssueButton.forEach(button=>{
     button.addEventListener('click', deleteIssue)
 })
+
+
+
+
+
+
+//HAMBURGER ICON
+let hamIcon=document.getElementById('myissueshomeHamburgerIcon')
+let hamMenu=document.getElementById('myissueshomeHamburgerMenu')
+console.log( hamIcon, hamMenu)
+
+hamIcon.addEventListener('click', ()=>{
+    console.log('Visibility:', hamMenu.style.visibility)
+    let visible=hamMenu.style.visibility
+
+    if(visible==='hidden'  || visible===''){
+        hamMenu.style.display='flex';
+        hamMenu.style.top='7%';
+        hamMenu.style.opacity='1';
+        hamMenu.style.right='3%';
+        hamMenu.style.visibility='visible';
+    }
+
+    if(visible==='visible'){
+        hamMenu.style.visibility='hidden';
+        hamMenu.style.opacity='0';
+        hamMenu.style.transition='visibility 0s, opacity 0.5s linear';
+    }
+
+})

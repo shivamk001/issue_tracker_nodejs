@@ -3,7 +3,7 @@ const Issue=require('../models/issue');
 const Project=require('../models/project');
 const Comment=require('../models/comment');
 
-module.exports.createIssue=async (req, res)=>{
+module.exports.createIssue=async (req, res, next)=>{
     let {project, title, description, status, author, labels}=req.body;
     try{
         console.log('Label in Issue Created:', labels)
@@ -39,7 +39,7 @@ module.exports.createIssue=async (req, res)=>{
 
 
 
-module.exports.getUserIssues=async (req, res)=>{
+module.exports.getUserIssues=async (req, res, next)=>{
     let {id}=req.params;
     try{
         let userId=new mongoose.Types.ObjectId(id);
@@ -51,10 +51,11 @@ module.exports.getUserIssues=async (req, res)=>{
     catch(err){
         // console.log('Err:', err)
         // return res.status(404).json(err)
+        next(err)
     }
 }
 
-module.exports.deleteIssue=async (req, res)=>{
+module.exports.deleteIssue=async (req, res, next)=>{
     let {id}=req.body
     try{
         console.log('ID:', id)

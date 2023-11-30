@@ -278,3 +278,31 @@ function displayEditCommentForm(e){
 editCommentButtons.forEach(button=>{
     button.addEventListener('click', displayEditCommentForm)
 })
+
+
+
+//HAMBURGER MENU
+
+let hamburgerIcon=document.getElementById('projectPagehamburgerIcon')
+let hamburgerMenu=document.getElementById('projectPagehamburgerMenu')
+
+hamburgerIcon.addEventListener('click', ()=>{
+    let visible=hamburgerMenu.style.visibility
+    console.log(hamburgerIcon, hamburgerMenu, visible)
+    
+
+    if(visible==='hidden'  || visible===''){
+        hamburgerMenu.style.display='flex';
+        hamburgerMenu.style.top='50%';
+        hamburgerMenu.style.opacity='1';
+        hamburgerMenu.style.right='5%';
+        hamburgerMenu.style.visibility='visible';
+    }
+
+    if(visible==='visible'){
+        hamburgerMenu.style.visibility='hidden';
+        hamburgerMenu.style.opacity='0';
+        hamburgerMenu.style.transition='visibility 0s, opacity 0.5s linear';
+    }
+
+})

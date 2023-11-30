@@ -4,9 +4,23 @@
 <section class="projectDetailsParentContainer">
     <section class="issueSection" id="commentSection">
         <div class="issueContainer" id="commentContainer">
-            <div style="width:100%; display: flex; justify-content: space-between; align-items: center;">
-                <h4>ALL MY COMMENTS</h4>
+            <div class="heading">
+                <h3>All My Comments</h3>
+                
+                <!-- <div class="hamburgerIcon" id="mycommentsHamburgerIcon"><i class="fa-solid fa-bars"></i></div> -->
+        
+                <!-- <div style="width: 50%; display: flex; flex-direction: row; justify-content: flex-end; align-items: center; "> -->
+                
+                    <!-- <div class="hamburgerMenu" id="mycommentshomeHamburgerMenu">
+                    <button id="resetButton" class="button">
+                        <a href="/"   style=" text-decoration: none;"><i class="fa-solid fa-rotate-right"></i>&nbsp;Reset</a></button>
+                    <button id="searchProjectButton" class="button">
+                        <i class="fa-solid fa-magnifying-glass"></i>Search Project</button>
+                </div> -->
             </div>
+            <!-- <div style="width:100%; display: flex; justify-content: space-between; align-items: center;">
+                <h4>ALL MY COMMENTS</h4>
+            </div> -->
     
             <% for(let comment of allComments){ %>
                 <% let commentCreatedAt=new Date(comment.createdAt) %>
@@ -17,22 +31,30 @@
                     hour: "2-digit",
                     minute: "2-digit",
                     second: "2-digit",
-                    timeZoneName: "short"
                   }; %>
                 <% let commentFomattedDate=commentCreatedAt.toLocaleDateString('en-US', options) %>
-                    <div class="issueCard" id="<%= comment._id %>">
-                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                            <h3><%= comment.comment %></h3>
+
+                    <div class="projectCard">
+                        <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 1%;">
+                            <p style="margin: 0; color: gray;"><b><%= comment.comment %></b></p>
                             <div>
-                                <button class="deleteCommentButton" data-id="<%= comment._id %>"><i class="fa-solid fa-trash" style="color: red;"></i></button>
+                                <button class="deleteCommentButton" data-id="<%= comment._id %>"><i class="fa-solid fa-trash"></i></button>
                             </div>
                             
                         </div>
-                        
-                        <div style="display: flex; justify-content: space-between;">
-                            <p><b>Project:</b><%= comment.issue.project.name %></p><br>
-                            <p><b>Issue:</b><%= comment.issue.title %></p>
-                            <p><b>Created At:</b><%= commentFomattedDate %></p><br>
+                        <div class="authorCreatedissuesContainer" >
+                            <div class="authorContainer">
+                                <small><b>PROJECT</b></small>
+                                <p style="margin: 0%;font-size: small;"><%= comment.issue.project.name %></p>
+                            </div>
+                            <div class="authorContainer">
+                                <small><b>ISSUE</b></small>
+                                <p style="margin: 0%; font-size: small;"><%= comment.issue.title %></p>
+                            </div>
+                            <div class="authorContainer">
+                                <small><b>COMMENTED ON</b></small>
+                                <p style="margin: 0%;font-size: small;"><%= commentFomattedDate %></p>
+                            </div>
                         </div>
                     </div>
             <% } %>

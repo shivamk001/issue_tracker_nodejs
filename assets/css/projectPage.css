@@ -9,9 +9,16 @@ h4{
     /* width: 45%; */
     /* overflow: scroll; */
 
-    width: 100%;
+    width: 90%;
+
+    height: auto;
+
+    border: 1px solid lightgray;
 }
 
+.projectPageSection h3{
+    margin: 1%;
+}
 
 
 .searchIssueDiv{
@@ -28,7 +35,7 @@ h4{
 
 
 #deleteButton{
-    height: 10%;
+    height: auto;
     border: none;
     background-color: white;
     color: #DC4C64;
@@ -37,6 +44,12 @@ h4{
     width: auto;
     cursor: pointer;
     padding: 1%;
+    transition-duration: 0.5s;
+}
+
+#deleteButton:hover{
+    background-color: #DC4C64;
+    color: white;
 }
 
 
@@ -78,6 +91,49 @@ h4{
     width: 88%;
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4);
+}
+
+
+.button{
+    margin: 1%;
+    width: 100%; 
+    background-color: white; 
+    border: 1px solid #1E3050; 
+    border-radius: 1.5rem; 
+    padding: 5px;
+    color: #1E3050; 
+    cursor: pointer;
+    transition-duration: 0.5s;
+}
+
+.button:hover{
+    color: white; 
+    background-color: #1E3050; 
+}
+
+#resetButton{
+    text-decoration: none;}
+
+.button:hover i{
+    color: white; 
+}
+
+#createIssueButton{
+    border: 1px solid #0E8A16; 
+    color: #0E8A16;
+}
+
+#createIssueButton i{
+    color: #0E8A16;
+}
+
+#createIssueButton:hover{
+    background-color: #0E8A16; 
+    color: white;
+}
+
+#createIssueButton:hover i{
+    color: white;
 }
 
 #closeFilterButton{
@@ -136,4 +192,23 @@ h4{
 
 #closeEditCommentButton{
     background-color: lightgray; border: none; cursor: pointer;
+}
+
+.hamburgerMenu{
+    width: auto; 
+    height: auto;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    background-color: white; 
+    position: absolute;
+    z-index: 10;
+    visibility: hidden;
+    transition: visibility 0s, opacity 0.5s linear;
+    opacity: 0;
+}
+
+.hamburgerIcon{
+    cursor: pointer;
+    margin: 1%;
 }

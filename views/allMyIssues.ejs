@@ -4,29 +4,42 @@
 <section class="projectDetailsParentContainer">
     <section class="issueSection" id="issueSection">
         <div class="issueContainer">
-            <div style="width:100%; display: flex; justify-content: space-between; align-items: center;">
-                <h4>ALL MY ISSUES</h4>
+            <div class="heading">
+                <h3>All My Issues</h3>
             </div>
     
             <% for(let issue of allIssues){ %>
-                    <div class="issueCard" id="<%= issue._id %>">
-                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                            <h3><a href="/issue/"><%= issue.title %></a></h3>
-                            <div>
-                                <button class="deleteIssueButton" data-id="<%= issue._id %>"><i class="fa-solid fa-trash" style="color: red;"></i></button>
-                                <button class="editIssueButton" data-id="<%= issue._id %>"><i class="fa-solid fa-pen" style="color: #1E3050;"></i></button>
+                <% const options = {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                  }; %>
+
+                    <div class="issueCard">
+                        <h4 style="margin: 1% 1% 0% 1%;"><%= issue.title %></h4>
+
+                        <div class="authorCreatedissuesContainer" >
+                            <div class="authorContainer">
+                                <small ><b>AUTHOR:</b></small>
+                                <p style="margin: 0%;font-size: small;"><%= issue.author?issue.author.username:'' %></p>
                             </div>
-                            
+                            <div class="authorContainer">
+                                <small ><b>CREATED:</b></small>
+                                <p style="margin: 0%; font-size: small;"><%= issue.createdAt.toLocaleDateString('en-US', options) %></p>
+                            </div>
+                            <div class="authorContainer">
+                                <small ><b>STATUS:</b></small>
+                                <p style="margin: 0%;font-size: small;"><%= issue.status %></p>
+                            </div>
                         </div>
-                        
-                        <div style="display: flex; justify-content: space-between;">
-                            <p><b>Project:</b><%= issue.project.name %></p><br>
-                            <p><b>Status:</b><%= issue.status%></p>
-                            <p><b>Created At:</b><%= issue.createdAt %></p><br>
+                        <div class="authorContainer">
+                            <small ><b>DESCRIPTION:</b></small>
+                            <p style="margin: 0%;font-size: small;"><%= issue.description %></p>
                         </div>
-    
-                        <p><b>Description:</b><%= issue.description %></p><br>
-    
+
                         <div class="labelsContainer">
                             <% for(let label of issue.labels){ %>
                                 <div class="label" style="color: <%= label.color %>; background-color: <%= label.backgroundColor %>"><%= label.name %></div>

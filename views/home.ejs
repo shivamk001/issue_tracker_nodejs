@@ -2,28 +2,46 @@
 
 
 
-    <section class="projectContainer">
-        <div style="width:100%; display: flex; flex-direction: row; justify-content: space-between;">
-            <h1 style="width: auto;">All Projects</h1>
-            <div style="width: 50%; display: flex; flex-direction: row; justify-content: flex-end; align-items: center; ">
-                <button id="resetButton" style="margin: 1%; width: auto; background-color: white; border: 1px solid #1E3050; border-radius: 1.5rem; color: #1E3050; cursor: pointer;">
-                    <a href="/"   style=" text-decoration: none;"><i class="fa-solid fa-rotate-right"></i>&nbsp;Reset</a></button>
-                <!-- <button id="createProjectButton" style="margin: 1%; width: auto; background-color: white; border: 1px solid #0E8A16;; border-radius: 1.5rem; color: #0E8A16;; cursor: pointer;">
-                    <i class="fa-solid fa-plus" style="color: #0E8A16;"></i>Create Project</button> -->
-                <button id="searchProjectButton" style="margin: 1%; width: auto; background-color: white; border: 1px solid #1E3050; border-radius: 1.5rem; color: #1E3050; cursor: pointer;">
-                    <i class="fa-solid fa-magnifying-glass" style="color: #1E3050;"></i>Search Project</button>
+    <section class="projectDetailsParentContainer">
+        <section class="issueSection" id="issueSection">
+            <div class="issueContainer">
+                <div class="heading">
+                    <h3>All Projects</h3>
+                    <div class="hamburgerIcon" id="homeHamburgerIcon"><i class="fa-solid fa-bars"></i></div>
+                    <div class="hamburgerMenu" id="homeHamburgerMenu">
+                        <button id="resetButton" class="button">
+                            <a href="/"   style=" text-decoration: none;"><i class="fa-solid fa-rotate-right"></i>&nbsp;Reset</a></button>
+                        <!-- <button id="createProjectButton" style="margin: 1%; width: auto; background-color: white; border: 1px solid #0E8A16;; border-radius: 1.5rem; color: #0E8A16;; cursor: pointer;">
+                            <i class="fa-solid fa-plus" style="color: #0E8A16;"></i>Create Project</button> -->
+                        <button id="searchProjectButton" class="button">
+                            <i class="fa-solid fa-magnifying-glass"></i>Search Project</button>
+                    </div>
+                </div>
+                <% for(let project of projects){ %>
+                    <div class="projectCard">
+                        <h4><a href="/project/page/<%= project.id %>"><%= project.name %></a></h4>
+                        <div class="authorCreatedissuesContainer" >
+                            <div class="authorContainer">
+                                <small><b>Author:</b></small>
+                                <p style="margin: 0%;font-size: small;"><%= project.author?project.author.username:'' %></p>
+                            </div>
+                            <div class="authorContainer">
+                                <small><b>Created At:</b></small>
+                                <p style="margin: 0%; font-size: small;"><%= project.createdAt.toLocaleDateString('en-US', {year:'numeric', month: 'numeric', day:'numeric', minute: '2-digit', second: '2-digit', hour: '2-digit'}) %></p>
+                            </div>
+                            <div class="authorContainer">
+                                <small><b>#Issues:</b></small>
+                                <p style="margin: 0%;font-size: small; align-self: center;"><%= project.issues.length %></p>
+                            </div>
+                        </div>
+                        <div class="authorContainer">
+                            <small><b>Description:</b></small>
+                            <p style="margin: 0%;font-size: small;"><%= project.description %></p>
+                        </div>
+                    </div>
+                <% } %>
             </div>
-        </div>
-        
-        <% for(let project of projects){ %>
-            <div class="projectCard">
-                <h3><a href="/project/page/<%= project.id %>"><%= project.name %></a></h3>
-                <p><b>Author:</b><%= project.author?project.author.username:'' %></p>
-                <p><b>Created At:</b><%= project.createdAt %></p>
-                <p><b>Total Issues:</b><%= project.issues.length %></p><br>
-                <p><b>Description:</b><%= project.description %></p>
-            </div>
-        <% } %>
+        </section>
     </section>
 
 

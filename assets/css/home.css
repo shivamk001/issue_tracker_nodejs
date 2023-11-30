@@ -10,7 +10,7 @@ body{
     overflow: hidden;
 }
 h4{
-    text-align: center;
+    text-align: left;
     margin: 1%;
 }
 
@@ -42,21 +42,10 @@ h4{
     flex-direction: row;
 }
 
-
-.projectContainer{
-    width: 88%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    overflow: scroll;
-    /* margin-left: 5%; */
-}
-
-.projectContainer h1{
+h1{
     margin-left: 1%;
 }
+
 
 .projectCard{
     width: 90%;
@@ -66,29 +55,19 @@ h4{
     box-shadow: rgb(54, 48, 48) 1px 1px 5px 1px; /*horizontal vertical blur radius*/
 }
 
-.projectCard h3{
-    margin: 5px;
+.projectCard h4{
+    margin: 1%;
 }
 
-.projectCard h5{
-    display: inline-block;
-}
 
-.projectCard p{
-    display: inline-block;
-    margin: 5px;
-}
 
 
 .projectDetailsParentContainer{
-    display: flex;
     width: 88%;
-    /* flex-direction: row; */
-    justify-content: space-between;
-    flex-wrap: wrap;
-
-    /* flex-direction: column; */
-    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 
@@ -125,6 +104,12 @@ h4{
     width: 25%;
     cursor: pointer;
     margin: 1%;
+}
+
+.form input[type="submit"]:hover{
+    background-color: white;
+    color: #3b71ca;
+    border: 1px solid #3b71ca;;
 }
 
 .inputContainer{
@@ -241,20 +226,23 @@ h4{
 /* TO DISPLAY ISSUES IN PROJECTPAGE AND ALLMYISSUES */
 .issueSection{
     margin: 1%;
-    margin-right: 0%;
-    margin-bottom: 2%;
+    /* margin-right: 0%;
+    margin-bottom: 2%; */
     /* width: 50%; */
     
     height: auto;
-    /* overflow: scroll; */
+    overflow: scroll;
 
-    width: 100%;
+    width: 90%;
+
+    border: 1px solid lightgray;
+    padding: 0%;
 }
 
 
 .issueContainer{
     width: 100%;
-    height: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -275,7 +263,7 @@ h4{
     box-shadow: rgb(54, 48, 48) 1px 1px 5px 1px; /*horizontal vertical blur radius*/
 }
 
-.issueCard h3{
+.issueCard h4{
     margin: 5px;
 }
 
@@ -350,12 +338,112 @@ h4{
 }
 
 .commentCard{
-        width: 98%;
+        width: 100%;
         /* border: 1px solid black; */
         /* margin: 1%; */
         /* border-radius: 10px; */
-        /* margin: 1% 0% 0% 0%; */
+        margin: 1%;
         display: flex; 
         flex-direction: column; 
          
+}
+
+
+.hamburgerMenu{
+    width: auto; 
+    height: auto;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    background-color: transparent; 
+    position: absolute;
+    z-index: 10;
+    visibility: hidden;
+    transition: visibility 0s, opacity 0.5s linear;
+    opacity: 0;
+}
+
+.hamburgerIcon{
+    cursor: pointer;
+    margin: 1%;
+}
+
+
+.heading{
+    width:90%; 
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between; 
+    align-items: center;
+    /* margin: 1%; */
+}
+
+.button{
+    margin: 1%; 
+    width: 120px; 
+    padding: 5px;
+    background-color: white; 
+    border: 1px solid #1E3050; 
+    border-radius: 1.5rem; 
+    color: #1E3050; 
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.button i{
+    color: #1E3050;
+}
+
+.button:hover{
+    color: white;
+    background-color:  #1E3050; 
+}
+
+.button:hover i{
+    color: white;
+}
+
+.authorCreatedissuesContainer{
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between; 
+    align-items: flex-start;
+}
+
+.authorContainer{
+    display: flex; 
+    flex-direction: column; 
+    margin: 1%; 
+    justify-content: center; 
+    align-items: flex-start;
+}
+
+small{
+    color: gray;
+}
+
+.commentEditButton{
+    background-color: white;
+    border: 1px solid black;
+    transition: 0.5s;
+}
+
+.commentEditButton:hover{
+    background-color: black;
+    border: 1px solid black;
+    color: white;
+}
+
+.deleteCommentButton{
+    color: red;
+    border: 1px solid red;
+    transition: 0.5s;
+    background-color: white;
+    cursor: pointer;
+}
+
+.deleteCommentButton:hover{
+    background-color: red;
+    border: 1px solid red;
+    color: white;
 }

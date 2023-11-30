@@ -8,43 +8,35 @@
     
     <%- style %>
 </head>
-<body>
+<body onresize="myFunction()">
 
     <section class="parentContainer">
-        <section class="leftContainer">
+        <section class="leftContainer" id="leftContainer">
             <h1 style="margin: 10px;">Issue Tracker</h1>
             <div class="linksContainer">
-                <a href="/" 
-                style="color: <%= page=='home'? '#0049B0' : 'white' %>">
-                <i class="fa-solid fa-house" style="color: <%= page=='home'? '#0049B0' : 'white' %>"></i>&nbsp;Home</a>
+                <a id="homePageLink" href="/" style="color: <%= page=='home'? '#0049B0' : 'white' %>"> <i  class="fa-solid fa-house" style="color: <%= page=='home'? '#0049B0' : 'white' %>"></i>&nbsp;Home</a>
                 <% console.log('User in Layout:', locals.author) %>
                 <% if(locals.author!=undefined){ %>
-                    <a href="/project/create" 
-                    style="color: <%= page=='projectForm'? '#0049B0' : 'white' %>">
-                    <i class="fa-solid fa-plus" style="color: <%= page=='projectForm'? '#0049B0' : 'white' %>"></i>&nbsp;Create Project</a>
+                    <a id="createProjectLink" href="/project/create" style="color: <%= page=='projectForm'? '#0049B0' : 'white' %>"> <i class="fa-solid fa-plus" style="color: <%= page=='projectForm'? '#0049B0' : 'white' %>"></i>&nbsp;Create Project</a>
                 <% } %>
     
                 <!-- <a href=""><i class="fa-solid fa-filter"></i>&nbsp;Filter Project</a> -->
 
 
                 <% if(locals.author==undefined){ %>
-                    <a href="/user/login"
-                    style="color: <%= page=='login'? '#0049B0' : 'white' %>">
-                    <i class="fa-solid fa-right-to-bracket" style="color: <%= page=='login'? '#0049B0' : 'white' %>"></i>&nbsp;Login</a>
+                    <a id="loginLink" href="/user/login" style="color: <%= page=='login'? '#0049B0' : 'white' %>"><i class="fa-solid fa-right-to-bracket" style="color: <%= page=='login'? '#0049B0' : 'white' %>"></i>&nbsp;Login</a>
                     
-                    <a href="/user/signup"
-                    style="color: <%= page=='signup'? '#0049B0' : 'white' %>">
-                    <i class="fa-solid fa-user-plus" style="color: <%= page=='signup'? '#0049B0' : 'white' %>"></i>&nbsp;Signup</a>
+                    <a id="signupLink" href="/user/signup" style="color: <%= page=='signup'? '#0049B0' : 'white' %>"><i class="fa-solid fa-user-plus" style="color: <%= page=='signup'? '#0049B0' : 'white' %>"></i>&nbsp;Signup</a>
                 <% }else{ %>
-                    <a href="/project/userProjects/<%= locals.author.id %>" style="color: <%= page=='userProjects'? '#0049B0' : 'white' %>"><i class="fa-solid fa-folder"  style="color: <%= page=='userProjects'? '#0049B0' : 'white' %>"></i>&nbsp;My Projects</a>
+                    <a id="myProjectsLink" href="/project/userProjects/<%= locals.author.id %>" style="color: <%= page=='userProjects'? '#0049B0' : 'white' %>"><i class="fa-solid fa-folder"  style="color: <%= page=='userProjects'? '#0049B0' : 'white' %>"></i>&nbsp;My Projects</a>
                     
-                    <a href="/issue/userIssues/<%= locals.author.id %>" style="color: <%= page=='userIssues'? '#0049B0' : 'white' %>"><i class="fa-regular fa-circle-dot" style="color: <%= page=='userIssues'? '#0049B0' : 'white' %>"></i>&nbsp;My Issues</a>
+                    <a id="myIssuesLink" href="/issue/userIssues/<%= locals.author.id %>" style="color: <%= page=='userIssues'? '#0049B0' : 'white' %>"><i class="fa-regular fa-circle-dot" style="color: <%= page=='userIssues'? '#0049B0' : 'white' %>"></i>&nbsp;My Issues</a>
 
-                    <a href="/comment/userComments" style="color: <%= page=='userComments'? '#0049B0' : 'white' %>"><i class="fa-solid fa-comment" style="color: <%= page=='userComments'? '#0049B0' : 'white' %>"></i>&nbsp;My Comments</a>
+                    <a id="myCommentsLink" href="/comment/userComments" style="color: <%= page=='userComments'? '#0049B0' : 'white' %>"><i class="fa-solid fa-comment" style="color: <%= page=='userComments'? '#0049B0' : 'white' %>"></i>&nbsp;My Comments</a>
                     
-                    <a href="/user/userPage/<%= locals.author.id %>" style="color: <%= page=='userDetailsPage'? '#0049B0' : 'white' %>"><i class="fa-solid fa-user" style="color: <%= page=='userDetailsPage'? '#0049B0' : 'white' %>"></i>&nbsp;<%= locals.author.username %></a>
+                    <a id="myCommentsLink" href="/user/userPage/<%= locals.author.id %>" style="color: <%= page=='userDetailsPage'? '#0049B0' : 'white' %>"><i class="fa-solid fa-user" style="color: <%= page=='userDetailsPage'? '#0049B0' : 'white' %>"></i>&nbsp;<%= locals.author.username %></a>
                     
-                    <a href="/user/logout" style="color: <%= page=='signup'? '#0049B0' : 'white' %>"><i class="fa-solid fa-right-from-bracket" style="color: <%= page=='login'? '#0049B0' : 'white' %>"></i>&nbsp;Logout</a>
+                    <a id="logoutLink" href="/user/logout" style="color: <%= page=='signup'? '#0049B0' : 'white' %>"><i class="fa-solid fa-right-from-bracket" style="color: <%= page=='login'? '#0049B0' : 'white' %>"></i>&nbsp;Logout</a>
                     <% } %>
             </div>
         </section>
@@ -55,5 +47,6 @@
     
     
     <%- script %>
+    <script src="/js/layout.js"></script>
 </body>
 </html>

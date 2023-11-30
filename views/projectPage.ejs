@@ -10,7 +10,10 @@
 
 <!-- PROJECT DETAILS SECTION -->
     <section class="projectPageSection" id="projectPageSection">
-        <h3><%= project.name %></h3>
+        <div class="heading">
+            <h3><%= project.name %></h3>
+        </div>
+        
         <% let projectCreatedAt=new Date(project.createdAt) %>
         <% const options = {
             year: "numeric",
@@ -20,13 +23,27 @@
             minute: "2-digit",
           }; %>
         <% let projectFormattedDate=projectCreatedAt.toLocaleDateString('en-US', options) %>
-        <div style="display: flex; justify-content: space-between;">
-            <p style="font-size: small;"><b>Author:</b><%= project.author?project.author.username:'' %></p> 
-            <p style="font-size: small;"><b>Created At:</b><%= projectFormattedDate %></p>
-        </div>
-        <p style="font-size: small;"><b>Description:</b><%= project.description %></p>
 
-        <form action="/project/delete/<%= project.id %>" method="POST" style="display: flex; justify-content: center;">
+        <div class="authorCreatedissuesContainer" >
+            <div class="authorContainer">
+                <small ><b>AUTHOR:</b></small>
+                <p style="margin: 0%;font-size: small;"><%= project.author?project.author.username:'' %></p>
+            </div>
+            <div class="authorContainer">
+                <small ><b>CREATED:</b></small>
+                <p style="margin: 0%; font-size: small;"><%= projectFormattedDate %></p>
+            </div>
+            <div class="authorContainer">
+                <small ><b>#Issues:</b></small>
+                <p style="margin: 0%;font-size: small; align-self: center;"><%= project.issues.length %></p>
+            </div>
+        </div>
+        <div class="authorContainer">
+            <small><b>DESCRIPTION:</b></small>
+            <p style="margin: 0%;font-size: small;"><%= project.description %></p>
+        </div>
+
+        <form action="/project/delete/<%= project.id %>" method="POST" style="display: flex; justify-content: center; margin: 1%;">
             <input id="deleteButton" type="submit" value="Delete Project"/>
         </form>
     </section>
@@ -38,18 +55,19 @@
 
 <!-- ISSUE SECTION -->
     <section class="issueSection" id="issueSection">
-        <div class="issueContainer">
-            <div style="width:100%; display: flex; justify-content: space-between; align-items: center;">
-                <h4>ALL ISSUES</h4>
-                <div style="width: 30%; display: flex; flex-direction: row;">
-                    <button id="resetButton" style="margin: 1%; width: 33%; background-color: white; border: 1px solid #1E3050; border-radius: 1.5rem; color: #1E3050; cursor: pointer;">
+        <div class="issueContainer" >
+            <div class="heading">
+                <h3>Issues</h3>
+                <div class="hamburgerIcon" id="projectPagehamburgerIcon"><i class="fa-solid fa-bars"></i></div>
+                <div class="hamburgerMenu" id="projectPagehamburgerMenu">
+                    <button class="button" id="resetButton">
                         <a href="/project/page/<%= project.id %>"   style=" text-decoration: none;"><i class="fa-solid fa-rotate-right"></i>&nbsp;Reset</a></button>
-                    <button id="searchButton" style="margin: 1%; width: 33%; background-color: white; border: 1px solid #1E3050; border-radius: 1.5rem; color: #1E3050; cursor: pointer;">
-                        <i class="fa-solid fa-magnifying-glass" style="color: #1E3050;"></i>&nbsp;Search</button>
-                    <button id="filterButton" style="margin: 1%; width: 33%; background-color: white; border: 1px solid #1E3050; border-radius: 1.5rem; color: #1E3050; cursor: pointer;">
+                    <button class="button" id="searchButton">
+                        <i class="fa-solid fa-magnifying-glass"></i>&nbsp;Search</button>
+                    <button class="button" id="filterButton">
                         <i class="fa-solid fa-filter"></i>&nbsp;Filter</button>
-                    <button id="createIssueButton" style="margin: 1%; width: 33%; background-color: white; border: 1px solid #0E8A16; border-radius: 1.5rem; color: #0E8A16; cursor: pointer;">
-                        <i class="fa-solid fa-plus" style="color: #0E8A16;"></i>&nbsp;Create Issue</button>
+                    <button class="button" id="createIssueButton">
+                        <i class="fa-solid fa-plus"></i>&nbsp;Create Issue</button>
                 </div>
             </div>
 
@@ -65,17 +83,32 @@
                 <% let issueFomattedDate=issueCreatedAt.toLocaleDateString('en-US', options) %>
                 <% if(issue.author && issue.labels.length>0 ){ %>
                     <div class="issueCard">
-                        <h3 style="margin: 1% 1% 0% 1%;"><%= issue.title %></h3>
-                        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; margin: 1% 1% 0% 1%;">
-                            <p style="margin: 0;"><b>Author:</b><%= issue.author?issue.author.username:'' %></p><br>
-                            <p style="margin: 0;"><b>Status:</b><%= issue.status%></p>
-                            <p style="margin: 0;"><b>Created At:</b><%= issueFomattedDate %></p><br>
+                        <h4 style="margin: 1% 1% 0% 1%; text-align: left;"><%= issue.title %></h4>
+
+                        <div class="authorCreatedissuesContainer" >
+                            <div class="authorContainer">
+                                <small ><b>AUTHOR:</b></small>
+                                <p style="margin: 0%;font-size: small;"><%= issue.author?issue.author.username:'' %></p>
+                            </div>
+                            <div class="authorContainer">
+                                <small ><b>CREATED:</b></small>
+                                <p style="margin: 0%; font-size: small;"><%= issueFomattedDate %></p>
+                            </div>
+                            <div class="authorContainer">
+                                <small ><b>STATUS:</b></small>
+                                <p style="margin: 0%;font-size: small;"><%= issue.status %></p>
+                            </div>
+                        </div>
+                        <div class="authorContainer">
+                            <small ><b>DESCRIPTION:</b></small>
+                            <p style="margin: 0%;font-size: small;"><%= issue.description %></p>
                         </div>
 
-                        <p style="margin: 1% 1% 0% 1%;"><b>Description:</b><%= issue.description %></p><br>
-                        <p style="margin: 1% 1% 0% 1%;"><b>Comments:</b></h4>
+
+                        
 
                         <div class="commentContainer">
+                            <p style="margin: 0%; align-self: flex-start; color: gray;"><b>COMMENTS:</b></p>
                                 <% for(let comment of issue.comments){ %>
                                     <% let commentCreatedAt=new Date(comment.createdAt) %>
                                     <% const options = {
@@ -92,7 +125,7 @@
                                             <button class="commentEditButton" data-id="<%= comment._id %>" data-comment="<%= comment.comment%>" style="cursor: pointer;"><i class="fa-solid fa-pen"></i></button>
                                         </div>
                                         <div>
-                                            <p style="word-break: break-all;"><%= comment.comment %></p><br>
+                                            <small style="word-break: break-all;"><%= comment.comment %></small><br>
                                         </div>
 
                                     </div>
@@ -137,11 +170,11 @@
                         <input id="issueFormTitle" type="text" name="title" placeholder="Enter title" required><br>
                 </div>
                 <div class="inputContainer">
-                        <h4 for="issueFormDescription">Description</h4>
+                        <h4 for="issueFormDescription">Description(Less than 500 characters allowed):</h4>
                         <textarea id="issueFormDescription" type="text" name="description" placeholder="Enter description" required></textarea><br>
                 </div>
                 <div  class="inputContainer">
-                    <h4 for="issueFormDescription">Labels:(Ctrl + click to select multiple)</h4>
+                    <h4 for="issueFormDescription">Labels(Can select multiple):</h4>
                     <div style="display: flex; flex-direction: row; flex-wrap: wrap; margin: 1%; width: 90%; overflow-y: scroll; ">
                         <input id="createIssueFormLabelsInput" type="hidden" name="labels" value/>
                         <% for(let label of labels){ %>
