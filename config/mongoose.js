@@ -2,7 +2,8 @@ const mongoose=require('mongoose');
 
 
 //mongodb cluster
-mongoose.connect('mongodb+srv://shivamk001:4gtBAfKze5K1D2wJ@cluster0.r6rocwl.mongodb.net/issueTracker?retryWrites=true&w=majority').
+const mongodb=process.env.MONGOOSEDB
+mongoose.connect(mongodb).
 catch(error => console.error(error));
 
 const db=mongoose.connection;

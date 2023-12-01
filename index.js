@@ -5,7 +5,8 @@ const session=require('express-session')
 const MongoStore=require('connect-mongo')
 const expressLayouts=require('express-ejs-layouts')
 const flash = require('connect-flash');
-const port=8000
+require('dotenv').config()
+
 
 const app=express()
 
@@ -47,6 +48,7 @@ app.use((err, req, res, next)=>{
     return res.render('errorsPage', {message: err.message, statusCode: 500, page:'error', author: req.user})
 })
 
+const port=process.env.PORT||8000
 app.listen(port, function(err){
     if(err){
         console.log(err);
