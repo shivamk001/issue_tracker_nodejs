@@ -1,10 +1,11 @@
 const Label=require('../models/label');
 
+//CREATE A NEW LABEL
 module.exports.createLabel=async (req, res, next)=>{
     let {name, description, color}=req.body;
     try{
         const label=await Label.create({name, description, color});
-        console.log('Label Created:', label)
+        //console.log('Label Created:', label)
 
         return res.status(201).json(label)
     }

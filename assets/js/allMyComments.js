@@ -1,6 +1,8 @@
 //DELETE ISSUE BUTTONS
 let deleteCommentButton=document.querySelectorAll('.deleteCommentButton')
 
+
+//REMOVE COMMENT DYNAMICALLY
 async function deleteComment(e){
     try{
         //let element=e.target
@@ -38,6 +40,7 @@ let hamIcon=document.getElementById('mycommentsHamburgerIcon')
 let hamMenu=document.getElementById('mycommentshomeHamburgerMenu')
 console.log( hamIcon, hamMenu)
 
+//SHOW HIDE HAMBURGER MENU ON CLICK
 hamIcon.addEventListener('click', ()=>{
     console.log('Visibility:', hamMenu.style.visibility)
     let visible=hamMenu.style.visibility

@@ -1,6 +1,7 @@
 //DELETE ISSUE BUTTONS
 let deleteIssueButton=document.querySelectorAll('.deleteIssueButton')
 
+//REMOVE ISSUE DYNAMICALLY
 async function deleteIssue(e){
     try{
         //let element=e.target
@@ -41,6 +42,7 @@ let hamIcon=document.getElementById('myissueshomeHamburgerIcon')
 let hamMenu=document.getElementById('myissueshomeHamburgerMenu')
 console.log( hamIcon, hamMenu)
 
+//SHOW HIDE HAMBURGER MENU ON CLICK
 hamIcon.addEventListener('click', ()=>{
     console.log('Visibility:', hamMenu.style.visibility)
     let visible=hamMenu.style.visibility

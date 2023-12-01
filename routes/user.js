@@ -1,22 +1,26 @@
 const express=require('express')
+var passport = require('passport');
+var LocalStrategy = require('passport-local');
+
 const router=express.Router()
 
 const User=require('../models/user')
-var passport = require('passport');
-var LocalStrategy = require('passport-local');
+
+
+//CONFIGURE PASSPORT TO USE LOCAL STRATEGY
 passport.use(new LocalStrategy(async function verify(username, password, done){
     try{
         const user=await User.findOne({username});
-        console.log('User in LocalStrategy:', user, user.password)
+        //console.log('User in LocalStrategy:', user, user.password)
         if(!user){ return done(null, false); }
         let result=await user.comparePassword(password);
-        console.log('Result in localstrategy:', result)
+        //console.log('Result in localstrategy:', result)
         if(result){
-            console.log('redirect to /')
+            //console.log('redirect to /')
             return done(null, user);
         }
         else{
-            console.log('redirect to /login')
+            //console.log('redirect to /login')
             return done(null, false);
         }
     }
@@ -26,12 +30,14 @@ passport.use(new LocalStrategy(async function verify(username, password, done){
     
 }));
 
+//SERIALIZE USER
 passport.serializeUser(function(user, cb) {
     process.nextTick(function() {
       cb(null, { id: user.id, username: user.username });
     });
 });
 
+//DESERIALIZE USER
 passport.deserializeUser(function(user, cb) {
     process.nextTick(function() {
       return cb(null, user);
@@ -41,18 +47,27 @@ passport.deserializeUser(function(user, cb) {
 const userController=require('../controllers/userController')
 const isAuthenticated=require('../utilities/isAuthenticated')
 
+
+//FOR NON AUTHENTICATED USER
+//SIGNUP ROUTE
 router.get('/signup', userController.renderSignup)
+//CREATE USER ROUTE
 router.post('/create', userController.createUser)
+//LOGIN USER ROUTE
 router.get('/login', userController.renderLogin)
+//ROUTE AFTER USER HAS SUBMITTED PASSWORD AND USERNAME 
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/user/login'
   }))//, userController.loginUser)
 
-
+//FOR AUTHENTICATED USER
 router.use(isAuthenticated)
+//UPDATE USER DETAILS ROUTE
 router.post('/update', userController.updateUser)
+//ROUTE TO SHOW USER DETAILS PAGE
 router.get('/userPage/:id', userController.renderUserDetailsPage)
+//LOGOUT USER ROUTE
 router.get('/logout', userController.logoutUser);
 
 

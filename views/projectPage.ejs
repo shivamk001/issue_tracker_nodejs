@@ -122,7 +122,7 @@
                                     <div class="commentCard">
                                         <div style="display: flex; flex-direction: row; justify-content: space-between;">
                                             <p style="margin: 0%;"><b><%= comment.author.username %></b><small style="margin: 5px;"><%= commentFomattedDate %></small><b>:</b></p>
-                                            <button class="commentEditButton" data-id="<%= comment._id %>" data-comment="<%= comment.comment%>" style="cursor: pointer;"><i class="fa-solid fa-pen"></i></button>
+                                            <button class="commentEditButton" data-id="<%= comment._id %>" data-comment="<%= comment.comment%>" title="Edit Comment" style="cursor: pointer;"><i class="fa-solid fa-pen"></i></button>
                                         </div>
                                         <div>
                                             <small style="word-break: break-all; color: black;"><%= comment.comment %></small><br>
@@ -197,7 +197,7 @@
     <section id="searchSection">
         <div style="width: 50%; height: auto; background-color: lightgray; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
             <div style="height: 10%; width: 100%; display: flex; justify-content: space-between;">
-                <h4>SEARCH ISSUE()</h4>
+                <h4>SEARCH ISSUE</h4>
                 <button id="closeSearchButton"><i class="fa-solid fa-x"></i></button>
             </div>
             <form id="searchIssueForm" class="form" action="/project/page/<%= project.id %>" method="POST" style="width: 90%; height: 90%; background-color: white; margin-bottom: 5%;">
@@ -279,7 +279,7 @@
                     <input id="editCommentId" type="text" name="id" hidden/>
                     <input type="text" name="projectId" value="<%= project._id %>" hidden/>
                     <textarea id="editCommentText" type="text" name="comment" placeholder="Write Comment" style="width: 100%; padding: 1%; margin: 1%;"></textarea>
-                    <input type="submit" value="Comment" style="background-color: black; color: white; width: auto; cursor: pointer; padding: 1%;">
+                    <input type="submit" value="Edit Comment" class="commentButton">
             </form>
         </div>
 </section>

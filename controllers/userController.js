@@ -1,10 +1,7 @@
 const mongoose=require('mongoose')
 const User=require('../models/user')
 
-
-
-
-
+//RENDER SIGNUP PAGE
 module.exports.renderSignup=async (req, res, next)=>{
     try{
         return res.render('signupForm', {page: 'signup', title: 'signup'})
@@ -12,7 +9,6 @@ module.exports.renderSignup=async (req, res, next)=>{
     catch(err){
         console.log('Error in renderSignup:', err);
         // return res.status(504).json(err)
-        
         next(err)
     }
 }
@@ -21,18 +17,18 @@ module.exports.renderSignup=async (req, res, next)=>{
 
 
 
-
+//CREATE USER THEN REDIRECT TO LOGIN PAGE
 module.exports.createUser=async (req, res, next)=>{
     let {username, email, password, userType, confirmPassword}=req.body
-    console.log('Signup:', username, email, password, userType, confirmPassword)
+    //console.log('Signup:', username, email, password, userType, confirmPassword)
     try{
         if(password===confirmPassword){
             let user=await User.create({
                 username, email, password, userType
             })
             
-            console.log('User created:', user)
-            req.flash('info', 'User created successfully!')
+            //console.log('User created:', user)
+            req.flash('success', 'User created successfully!')
             return res.redirect('/user/login')
         }
         else{
@@ -48,10 +44,7 @@ module.exports.createUser=async (req, res, next)=>{
 }
 
 
-
-
-
-
+//RENDER LOGIN PAGE
 module.exports.renderLogin=async (req, res, next)=>{
     try{
         return res.render('loginForm', {page: 'login', title: 'Login', /*user: undefined*/})
@@ -84,7 +77,7 @@ module.exports.loginUser=async (req, res, next)=>{
 
 
 
-
+//LOGOUT USER AND REDIRECT TO HOMEPAGE
 module.exports.logoutUser=(req, res, next)=>{
     try{
         req.logout(function(err){
@@ -99,16 +92,14 @@ module.exports.logoutUser=(req, res, next)=>{
 }
 
 
-
-
-
+//RENDER LOGGEDIN USER DETAILS PAGE 
 module.exports.renderUserDetailsPage=async (req, res, next)=>{
     try{
         
         let {username}=req.user
-        console.log('User:', req.user, username)
+       //console.log('User:', req.user, username)
         let user=await User.findOne({username})
-        console.log('User:', user)
+        //console.log('User:', user)
         return res.render('userDetailsPage', {page: 'userDetailsPage', author: req.user, user: user, title: 'My Account'})
     }
     catch(err){
@@ -121,14 +112,15 @@ module.exports.renderUserDetailsPage=async (req, res, next)=>{
 
 
 
-
+//UPDATE USER DETAILS
 module.exports.updateUser=async (req, res, next)=>{
     let {username, password}=req.body
-    console.log('Signup:', username, email, password, userType, confirmPassword)
+    //console.log('Signup:', username, email, password, userType, confirmPassword)
     try{
-        console.log('UpdateUser:', username, req.user.username)
+        //console.log('UpdateUser:', username, req.user.username)
         if(req.user.username===username){
             await User.findByIdAndUpdate({password})
+            req.flash('success', 'User Details Updated SUCCESSFULLY!')
             return res.redirect('/')
         }
         else{

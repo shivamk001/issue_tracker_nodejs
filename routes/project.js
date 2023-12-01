@@ -5,20 +5,20 @@ const isAuthenticated=require('../utilities/isAuthenticated')
 
 const projectController=require('../controllers/projectController')
 
-router.get('/all', (req, res, next)=>{console.log('/project/all'); next();}, projectController.getAllProjects)
+//ROUTE TO DISPLAY ALL PROJECTS IN HOMEPAGE
+router.get('/all', projectController.getAllProjects)
 
-
+//ALLOW BELOW ROUTES FOR AUTHENTICATED USER
 router.use(isAuthenticated)
+//CREATE PROJECT ROUTE
 router.post('/create', projectController.createProject)
 router.get('/create', projectController.renderCreateProject)
+//SHOW PROJECT WITH ID IN PARAMS ROUTE
 router.get('/page/:id', projectController.showProjectPage)
 router.post('/page/:id', projectController.showProjectPage)
-router.get('/userProjects/:id', (req, res, next)=>{
-    console.log(req.params)
-    //return res.render('home', {title: 'IssueTrackerHome', projects});
-    // return res.send('POST request received')
-    next()
-}, projectController.getUserProjects)
+//ROUTE TO GET ALL PROJECTS WITH USERID MENTIONED IN PARAMS
+router.get('/userProjects/:id', projectController.getUserProjects)
+//ROUTE TO DELETE PROJECT WITH ID IN PARAMS
 router.post('/delete/:id', projectController.deleteProject)
 
 module.exports=router

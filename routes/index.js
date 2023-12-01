@@ -6,11 +6,18 @@ router.use((req, res, next)=>{
     console.log('User in routes:', req.user)
     next();
 })
-router.use('/', (req, res, next)=>{console.log('/'); next();}, require('./home'));
-router.use('/project', (req, res, next)=>{console.log('/project'); next();}, require('./project'));
-router.use('/issue', (req, res, next)=>{console.log('/issue'); next();}, require('./issue'));
-router.use('/user', (req, res, next)=>{console.log('/user'); next();}, require('./user'));
-router.use('/label', (req, res, next)=>{console.log('/label'); next();}, require('./label'));
-router.use('/comment', (req, res, next)=>{console.log('/comment:', req.user); next();}, require('./comment'));
+
+//HOMEPAGE ROUTE
+router.use('/', require('./home'));
+//PROJECT ROUTE
+router.use('/project', require('./project'));
+//ISSUE ROUTE
+router.use('/issue', require('./issue'));
+//USER ROUTE
+router.use('/user', require('./user'));
+//LABEL ROUTE
+router.use('/label', require('./label'));
+//COMMENT ROUTE
+router.use('/comment', require('./comment'));
 
 module.exports=router

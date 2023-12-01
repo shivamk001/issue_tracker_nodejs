@@ -8,18 +8,15 @@ const issueController=require('../controllers/issueController');
     console.log(req.params)
     next()
 }
-
+//ALLOW ONLY AUTHENTICATED USER
 router.use(isAuthenticated)
-router.post('/create', (req, res, next)=>{
-    console.log(req.body)
-    next()
-}, issueController.createIssue);
-router.get('/userIssues/:id', (req, res, next)=>{
-    console.log(req.params)
-    next()
-}, issueController.getUserIssues)
+//CREATE USER ROUTE
+router.post('/create', issueController.createIssue);
+//GET USER ISSUES ROUTE
+router.get('/userIssues/:id', issueController.getUserIssues)
+//DELETE ISSUE ROUTE
 router.delete('/delete', issueController.deleteIssue)
 
-router.post('/')
+//router.post('/')
 
 module.exports=router

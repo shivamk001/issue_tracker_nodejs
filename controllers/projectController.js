@@ -5,33 +5,36 @@ const Label=require('../models/label')
 const User=require('../models/user')
 const Issue=require('../models/issue')
 const Comment=require('../models/comment')
-const setFlashMessage=require('../utils/setFlashMessage')
+const setFlashMessage=require('../utilities/setFlashMessage')
 // const {home}=require('./homeController')
 
+//RETURN ALL PROJECTS
 module.exports.allProjects=async (query)=>{
     try{
-        console.log('All Projects:', query)
+        //console.log('All Projects:', query)
         const projects=await Project.find(query).populate('author', 'username -_id')
-        console.log('All Projects:', projects)
+        //console.log('All Projects:', projects)
         return projects
     }
     catch(err){
-        console.error('Error:', err)
+        console.error('Error in allProjects:', err)
         return []
     }
 }
 
+//CREATE PROJECT
 module.exports.createProject=async (req, res, next)=>{
     const {name, description, author}=req.body
 
     try{
+        //THROW ERROR
         if(description.length>1000){
             throw new Error("User Error: Description length must be less than 1000 characters.");
         }
         const project=await Project.create({
             name, description, author
         })
-        console.log('Project:', project)
+        //console.log('Project:', project)
         req.flash('success', 'Project created!')
         return res.redirect('/')
         //return res.status(201).json(project)
@@ -43,16 +46,18 @@ module.exports.createProject=async (req, res, next)=>{
     }
 }
 
+//RENDER CREATE PROJECT FORM
 module.exports.renderCreateProject=(req, res)=>{
     console.log('User in renderCreateProject:', req.user.id)
     return res.render('projectForm', { title: 'Create Project', page: 'projectForm', author: req.user, user: req.user.id })
 }
 
+//GET ALL PROJECTS
 module.exports.getAllProjects=async (req, res, next)=>{
     try{
-        console.log('Get All Projects')
+        //console.log('Get All Projects')
         const projects=await Project.find({}).populate('author', 'username -_id')
-        console.log('All Projects:', projects)
+        //console.log('All Projects:', projects)
 
         return res.status(200).json(projects)
     }
@@ -63,20 +68,22 @@ module.exports.getAllProjects=async (req, res, next)=>{
     }
 }
 
+//RENDER PROJECT PAGE
 module.exports.showProjectPage=async(req, res, next)=>{
-    console.log('SHOW PROJECT PAGE')
-    console.log("Params:", req.params);
-    console.log('METHOD:', req.method);
-    console.log('REQ BODY:', req.body);
+    // console.log('SHOW PROJECT PAGE')
+    // console.log("Params:", req.params);
+    // console.log('METHOD:', req.method);
+    // console.log('REQ BODY:', req.body);
     //console.log('Flash Message:', req.flash())
 
     let {title, description, authors, labels}=req.body
     let {id}=req.params;
     try{
     let _id= new mongoose.Types.ObjectId(id);
-    console.log('Title:', title)
-    console.log("Labels:", labels)
+    //console.log('Title:', title)
+    //console.log("Labels:", labels)
     
+    //CREATE QUERY
     let authorMatch={}, labelMatch={}, titleDescriptionMatch={}
     if(title){
         titleDescriptionMatch.title=title
@@ -86,18 +93,18 @@ module.exports.showProjectPage=async(req, res, next)=>{
     }
     if(authors){
         let allAuthors=authors.split(',').slice(0, -1)
-        console.log('All Authors:', allAuthors)
+        //console.log('All Authors:', allAuthors)
         authorMatch['username']={$in: allAuthors}
 
     }
     if(labels){
         let allLabels=labels.split(',').slice(0, -1);
-        console.log('All Labels:', allLabels)
+        //console.log('All Labels:', allLabels)
         labelMatch.name={$in: allLabels}
     }   
-    console.log('Title Description Match:', titleDescriptionMatch)
-    console.log('Author Match:', authorMatch)
-    console.log('Label Match:', labelMatch)
+    //console.log('Title Description Match:', titleDescriptionMatch)
+    //console.log('Author Match:', authorMatch)
+    //console.log('Label Match:', labelMatch)
 
 
     //AUTHOR MATCH: match:{"username":{$in: ['shivamk001',]}}
@@ -114,7 +121,7 @@ module.exports.showProjectPage=async(req, res, next)=>{
     //     .populate({path: 'issues', match: titleDescriptionMatch, populate: {path: 'labels'}})
     // }
     // else{
-        project=await Project.findById({_id:_id})
+    project=await Project.findById({_id:_id})
         .populate('author', 'username -_id')
         .populate({path: 'issues', populate: {path: 'comments', populate: {path: 'author', select:'username -_id',}}})
         .populate({path: 'issues',  populate: {path: 'author', select:'username -_id',  match: authorMatch}})
@@ -124,35 +131,46 @@ module.exports.showProjectPage=async(req, res, next)=>{
 
     let eligibleIssues=0
     project.issues.forEach(issue=>{
-        console.log(issue.title)
-        console.log(issue.labels.length)
-        console.log('Comments:', issue.comments)
-        issue.comments.forEach(comment=>{
-            console.log('DATE:', comment.createdAt)
-        })
+        //console.log(issue.title)
+        //console.log(issue.labels.length)
+        //console.log('Comments:', issue.comments)
+        // issue.comments.forEach(comment=>{
+        //     console.log('DATE:', comment.createdAt)
+        // })
         if(issue.labels.length>0 && !(issue.author===null)){
             eligibleIssues++;
         }
     })
     
-    console.log("Total Issues in Project:",project.issues)
+    //console.log("Total Issues in Project:",project.issues)
 
     const labelss=await Label.find({}).select('name _id')
     const Users=await User.find({}).select('username -_id')
 
-    console.log('ELIGIBLE ISSUES:', eligibleIssues)
-    if(project.issues.length===0 || eligibleIssues===0){
-        req.flash('warning', 'No Issue Found With Matching Name, Descrption, Author, Label.')
+    //console.log('ELIGIBLE ISSUES:', eligibleIssues)
+
+
+    //console.log(authorMatch, Object.keys(authorMatch).length)
+    //console.log(labelMatch, Object.keys(labelMatch).length)
+    //console.log(titleDescriptionMatch, Object.keys(titleDescriptionMatch).length)
+    if(Object.keys(authorMatch).length==0 && Object.keys(labelMatch).length==0 && Object.keys(titleDescriptionMatch)==0){
     }
     else{
-        req.flash('info', 'Showing Search Results.')
+        if(project.issues.length===0 || eligibleIssues===0){
+            req.flash('warning', 'No Matching Issue Found.')
+        }
+        else{
+            //console.log('Inside')
+            req.flash('info', 'Showing Search Results.')
+        }
+
     }
 
     //SET FLASHMESSAGE
     let flashObject=req.flash()
-    console.log('Flash Message:', flashObject)
+    //console.log('Flash Message:', flashObject)
     let flashMessage=setFlashMessage(flashObject)
-    console.log('FLASHMESSAGE:', flashMessage)
+    //console.log('FLASHMESSAGE:', flashMessage)
     //console.log("Project Page:", project)
     return res.render('projectPage', {project: project, labels: labelss, author: req.user, issues: project.issues, title: project.name, page:'projectPage', users: Users, flashMessage})
     //return res.status(201).json({ project })    
@@ -164,6 +182,7 @@ module.exports.showProjectPage=async(req, res, next)=>{
     }
 }
 
+//DELETE A PROJECT BY ID
 module.exports.deleteProject=async(req, res, next)=>{
     let {id}=req.params
     try{
@@ -180,9 +199,9 @@ module.exports.deleteProject=async(req, res, next)=>{
             await Comment.deleteMany({'issue': issue._id })
         })
         let deletedIssues=await Issue.deleteMany({_id:{$in:project.issues}});
-        console.log('Deleted Issues:', deletedIssues);
+        //console.log('Deleted Issues:', deletedIssues);
         const deletedProject=await Project.findByIdAndDelete(_id);
-        console.log("deleted:", _id, deletedProject)
+        //console.log("deleted:", _id, deletedProject)
         req.flash('info', 'Project Deleted!')
         return res.redirect('/')
     }
@@ -193,12 +212,13 @@ module.exports.deleteProject=async(req, res, next)=>{
     }
 }
 
+//GET PROJECTS FOR LOGGED IN USER AND RENDER
 module.exports.getUserProjects=async (req, res, next)=>{
     try{
-        console.log('Get User Projects:', req.params.id)
+        //console.log('Get User Projects:', req.params.id)
         let query={author: req.params.id}
         const allProjects=await Project.find(query).populate('author', 'username -_id')
-        console.log('All Projects:', allProjects)
+        //console.log('All Projects:', allProjects)
 
         //return res.status(200).json(allProjects)
         return res.render('allMyProjects', {allMyProjects: allProjects, page: 'userProjects', author: req.user})

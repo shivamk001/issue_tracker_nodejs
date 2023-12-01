@@ -3,7 +3,7 @@
 let createIssueButton=document.getElementById('createIssueButton')
 let createIssueFormSection=document.getElementById('createIssueFormSection')
 let closeIssueFormButton=document.getElementById('closeIssueFormButton')
-
+//SHOW/HIDE CREATE ISSUE FORM
 function closeIssueForm(){
     createIssueFormSection.style.display='none'
 }
@@ -27,7 +27,7 @@ createIssueButton.addEventListener('click', displayIssueForm)
 //Search Section
 let searchButton=document.getElementById('searchButton')
 let searchSection=document.getElementById('searchSection')
-
+//SHOW/HIDE SEARCH FORM
 let closeSearchButton=document.getElementById('closeSearchButton')
 function closeSearchForm(){
     searchSection.style.display='none'
@@ -35,7 +35,7 @@ function closeSearchForm(){
 closeSearchButton.addEventListener('click', closeSearchForm)
 
 function displaySearchForm(){
-    console.log('In displaySearchForm')
+    //console.log('In displaySearchForm')
     searchSection.style.display='flex'
     searchSection.style.flexDirection='row'
     searchSection.style.alignItems='center'
@@ -48,11 +48,10 @@ searchButton.addEventListener('click', displaySearchForm)
 
 
 
-
 //Filter Section
 let filterButton=document.getElementById('filterButton')
 let filterSection=document.getElementById('filterSection')
-
+//SHOW/HIDE FILTER FORM
 let closeFilterButton=document.getElementById('closeFilterButton')
 function closeFilterForm(){
     filterSection.style.display='none'
@@ -60,9 +59,6 @@ function closeFilterForm(){
 closeFilterButton.addEventListener('click', closeFilterForm)
 
 function displayFilterForm(){
-    console.log(
-        'In displayFilterForm'
-    )
     filterSection.style.display='flex'
     filterSection.style.flexDirection='row'
     filterSection.style.alignItems='center'
@@ -181,8 +177,8 @@ let filterIssueForm=document.getElementById('filterIssueForm')
 filterIssueForm.reset()
 
 //clear issue search form
-let searchIssueForm=document.getElementById('searchIssueForm')
-searchIssueForm.reset()
+// let searchIssueForm=document.getElementById('searchIssueForm')
+// searchIssueForm.reset()
 
 
 
@@ -255,7 +251,7 @@ let editCommentFormSection=document.getElementById('editCommentFormSection');
 let closeEditCommentButton=document.getElementById('closeEditCommentButton');
 let editCommentText=document.getElementById('editCommentText');
 let editCommentId=document.getElementById('editCommentId');
-
+//SHOW/HIDE EDIT COMMENT FORM
 function closeEditCommentForm(){
     editCommentFormSection.style.display='none'
 }
@@ -282,10 +278,10 @@ editCommentButtons.forEach(button=>{
 
 
 //HAMBURGER MENU
-
 let hamburgerIcon=document.getElementById('projectPagehamburgerIcon')
 let hamburgerMenu=document.getElementById('projectPagehamburgerMenu')
 
+//SHOW/HIDE HAMBURGER MENU
 hamburgerIcon.addEventListener('click', ()=>{
     let visible=hamburgerMenu.style.visibility
     console.log(hamburgerIcon, hamburgerMenu, visible)

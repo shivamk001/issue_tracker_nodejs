@@ -1,10 +1,11 @@
 let {allProjects}=require('./projectController')
-const setFlashMessage=require('../utils/setFlashMessage')
+const setFlashMessage=require('../utilities/setFlashMessage')
 
+//DISPLAY THE HOMEPAGE
 module.exports.home=async function(req, res, next){
     try{
         //get all user
-        console.log('HOME REQ.BODY:', req.query)
+        //console.log('HOME REQ.BODY:', req.query)
         let {name, description}=req.query
         let query={}
         if(name){
@@ -13,22 +14,24 @@ module.exports.home=async function(req, res, next){
         if(description){
             query.description={$regex: description, $options: 'i'}
         }
-        console.log('QUERY:', query)
+        //console.log('QUERY:', query)
 
         
         
         
         let projects=await allProjects(query)
-        console.log('ALLProjects:', projects)
-        projects.forEach(project=>{
-            console.log('Project Issue Length:', project.issues.length)
-        })
-        console.log('User in homeController:', req.user)
+        //console.log('ALLProjects:', projects)
+        // projects.forEach(project=>{
+        //     console.log('Project Issue Length:', project.issues.length)
+        // })
+        //console.log('User in homeController:', req.user)
+        
         if(req.user){
             console.log('REQ AFTER LOGIN:', req.user, req.session.passport)
         }
-        console.log('Homepage user:', req.user)
+        //console.log('Homepage user:', req.user)
 
+        //SET REQ.FLASH
         if(projects.length===0){
             req.flash('warning', 'No Project Found With Matching Name Or Descrption.')
         }
@@ -42,8 +45,8 @@ module.exports.home=async function(req, res, next){
         //SET FLASHMESSAGE
         let flashObject=req.flash()
         let flashMessage=setFlashMessage(flashObject)
-        console.log('Flash Message:', flashObject)
-        console.log('FLASHMESSAGE:', flashMessage)
+        //console.log('Flash Message:', flashObject)
+        //console.log('FLASHMESSAGE:', flashMessage)
 
         return res.render('home', { title: 'IssueTrackerHome', projects, page: 'home', author: req.user, flashMessage });
     }

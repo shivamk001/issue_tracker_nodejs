@@ -1,10 +1,11 @@
 const mongoose=require('mongoose');
 const Comment=require('../models/comment');
 
+//CREATE COMMENT
 module.exports.createComment= async (req, res, next)=>{
     try{
         let {comment, issue, project}=req.body;
-        console.log('Auther in createComment:', req.user, comment, issue);
+        //console.log('Auther in createComment:', req.user, comment, issue);
         let author=req.user.id;
 
         if(comment.length>200){
@@ -21,13 +22,14 @@ module.exports.createComment= async (req, res, next)=>{
     }
 }
 
+//DELETE COMMENT
 module.exports.deleteComment=async (req, res, next)=>{
     try{
         let {id}=req.body;
-        console.log('Comment in createComment:', id);
+        //console.log('Comment in createComment:', id);
         
         let deletedComment=await Comment.findByIdAndDelete({_id: new mongoose.Types.ObjectId(id)})
-        console.log('DeletedComment:', deletedComment)
+        //console.log('DeletedComment:', deletedComment)
         return res.status(200).json(deletedComment)
     }
     catch(err){
@@ -36,10 +38,11 @@ module.exports.deleteComment=async (req, res, next)=>{
     }
 }
 
+//EDIT COMMENT
 module.exports.editComment=async (req, res, next)=>{
     try{
         let {id, projectId, comment}=req.body
-        console.log('Edit Comment:', req.body)
+        //console.log('Edit Comment:', req.body)
         let _id=new mongoose.Types.ObjectId(id);
         let updatedComment=await Comment.findByIdAndUpdate(_id,{comment: comment}, {returnDocument: 'after', })
         req.flash('success', 'Comment Edited!')
@@ -50,15 +53,16 @@ module.exports.editComment=async (req, res, next)=>{
     }
 }
 
+//GET COMMENTS OF LOGGEDIN USER
 module.exports.getUserComments=async (req, res, next)=>{
     try{
         let id=req.user.id
-        console.log('UserId in comments:', id)
+        //console.log('UserId in comments:', id)
         const allComments=await Comment.find({author: id})
         .populate('author', 'username -_id')
         .populate({path: 'issue', select: 'title -_id'})
         .populate({path: 'issue', populate: {path:'project', select: 'name -_id'}})
-        console.log('AllComments:', allComments)
+        //console.log('AllComments:', allComments)
 
         //return res.status(201).json(allComments)
         return res.render('allMyComments', {allComments: allComments, page: 'userComments', author: req.user})
