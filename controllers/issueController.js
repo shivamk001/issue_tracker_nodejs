@@ -38,6 +38,7 @@ module.exports.createIssue=async (req, res, next)=>{
             reqdProject.save();
             console.log('Project Issues:', reqdProject);
             //return res.status(201).json(issue)
+            req.flash('success', 'Issue Created!')
             return res.redirect(`/project/page/${project}`)
         }
     }

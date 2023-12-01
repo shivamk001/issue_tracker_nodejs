@@ -1,12 +1,12 @@
-//const { default: Project } = require('../models/projects')
-// const ObjectId=require('mongoose').ObjectId;
 const mongoose=require('mongoose');
+
 const Project=require('../models/project')
 const Label=require('../models/label')
 const User=require('../models/user')
 const Issue=require('../models/issue')
 const Comment=require('../models/comment')
-const {home}=require('./homeController')
+const setFlashMessage=require('../utils/setFlashMessage')
+// const {home}=require('./homeController')
 
 module.exports.allProjects=async (query)=>{
     try{
@@ -32,6 +32,7 @@ module.exports.createProject=async (req, res, next)=>{
             name, description, author
         })
         console.log('Project:', project)
+        req.flash('success', 'Project created!')
         return res.redirect('/')
         //return res.status(201).json(project)
     }
@@ -67,6 +68,8 @@ module.exports.showProjectPage=async(req, res, next)=>{
     console.log("Params:", req.params);
     console.log('METHOD:', req.method);
     console.log('REQ BODY:', req.body);
+    //console.log('Flash Message:', req.flash())
+
     let {title, description, authors, labels}=req.body
     let {id}=req.params;
     try{
@@ -119,7 +122,7 @@ module.exports.showProjectPage=async(req, res, next)=>{
     // }
 
 
-    
+    let eligibleIssues=0
     project.issues.forEach(issue=>{
         console.log(issue.title)
         console.log(issue.labels.length)
@@ -127,6 +130,9 @@ module.exports.showProjectPage=async(req, res, next)=>{
         issue.comments.forEach(comment=>{
             console.log('DATE:', comment.createdAt)
         })
+        if(issue.labels.length>0 && !(issue.author===null)){
+            eligibleIssues++;
+        }
     })
     
     console.log("Total Issues in Project:",project.issues)
@@ -134,9 +140,21 @@ module.exports.showProjectPage=async(req, res, next)=>{
     const labelss=await Label.find({}).select('name _id')
     const Users=await User.find({}).select('username -_id')
 
+    console.log('ELIGIBLE ISSUES:', eligibleIssues)
+    if(project.issues.length===0 || eligibleIssues===0){
+        req.flash('warning', 'No Issue Found With Matching Name, Descrption, Author, Label.')
+    }
+    else{
+        req.flash('info', 'Showing Search Results.')
+    }
 
+    //SET FLASHMESSAGE
+    let flashObject=req.flash()
+    console.log('Flash Message:', flashObject)
+    let flashMessage=setFlashMessage(flashObject)
+    console.log('FLASHMESSAGE:', flashMessage)
     //console.log("Project Page:", project)
-    return res.render('projectPage', {project: project, labels: labelss, author: req.user, issues: project.issues, title: project.name, page:'projectPage', users: Users})
+    return res.render('projectPage', {project: project, labels: labelss, author: req.user, issues: project.issues, title: project.name, page:'projectPage', users: Users, flashMessage})
     //return res.status(201).json({ project })    
     }
     catch(err){
@@ -165,6 +183,7 @@ module.exports.deleteProject=async(req, res, next)=>{
         console.log('Deleted Issues:', deletedIssues);
         const deletedProject=await Project.findByIdAndDelete(_id);
         console.log("deleted:", _id, deletedProject)
+        req.flash('info', 'Project Deleted!')
         return res.redirect('/')
     }
     catch(err){

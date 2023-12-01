@@ -98,3 +98,40 @@
 
 
 <script src="/js/homePage.js"></script>
+<script>
+    <% console.log('HOMEPAGE FLASHMESSAGE:', flashMessage) %>
+    <% if(flashMessage.success){ %>
+        new Noty({
+                theme: 'relax',
+                text: "<%= flashMessage.success %>",
+                type: "success",
+                layout: 'topRight',
+                timeout: '1500',
+                progressBar: true
+            }).show();
+    <% } %>
+
+    <% if(flashMessage.info){ %>
+        <%console.log(flashMessage.info);%>
+        new Noty({
+                theme: 'relax',
+                text: "<%= flashMessage.info %>",
+                type: "info",
+                layout: 'topRight',
+                timeout: '3000',
+                progressBar: true
+            }).show();
+    <% } %>
+
+    <% if(flashMessage.warning){ %>
+        <%console.log(flashMessage.warning);%>
+        new Noty({
+                theme: 'relax',
+                text: "<%= flashMessage.warning %>",
+                type: "warning",
+                layout: 'topRight',
+                timeout: '1500',
+                progressBar: true
+            }).show();
+    <% } %>
+</script>
