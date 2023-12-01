@@ -114,7 +114,15 @@ h4{
 #resetButton{
     text-decoration: none;}
 
-.button:hover i{
+a:visited{
+    color: #1E3050;
+}
+
+a:hover {
+    color: white;
+}
+
+.button:hover a{
     color: white; 
 }
 
@@ -194,21 +202,17 @@ h4{
     background-color: lightgray; border: none; cursor: pointer;
 }
 
-.hamburgerMenu{
-    width: auto; 
-    height: auto;
-    display: flex; 
-    flex-direction: column; 
-    align-items: center;
-    background-color: white; 
-    position: absolute;
-    z-index: 10;
-    visibility: hidden;
-    transition: visibility 0s, opacity 0.5s linear;
-    opacity: 0;
+.commentButton{
+    background-color: black; 
+    border: 1px solid black;
+    color: white; 
+    width: 15%; 
+    cursor: pointer;
+    transition: 0.5s;
 }
 
-.hamburgerIcon{
-    cursor: pointer;
-    margin: 1%;
+.commentButton:hover{
+    background-color: white; 
+    border: 1px solid black;
+    color: black; 
 }

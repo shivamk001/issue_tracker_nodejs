@@ -43,7 +43,8 @@ app.use('/',  require('./routes'))
 
 
 app.use((err, req, res, next)=>{
-    return res.render('errorsPage', {message: err.message, statusCode: 500, page:'error'})
+    console.log('Error in err handler:', err, req.user)
+    return res.render('errorsPage', {message: err.message, statusCode: 500, page:'error', author: req.user})
 })
 
 app.listen(port, function(err){

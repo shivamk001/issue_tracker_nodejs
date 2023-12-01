@@ -7,6 +7,10 @@ module.exports.createComment= async (req, res, next)=>{
         console.log('Auther in createComment:', req.user, comment, issue);
         let author=req.user.id;
 
+        if(comment.length>200){
+            throw new Error("User Error: Comment length must be less than 200 characters.");
+        }
+
         let newComment=await Comment.create({comment, issue, author})
 
         return res.redirect(`/project/page/${project}`)
@@ -32,7 +36,7 @@ module.exports.deleteComment=async (req, res, next)=>{
     }
 }
 
-module.exports.editComment=async (req, res)=>{
+module.exports.editComment=async (req, res, next)=>{
     try{
         let {id, projectId, comment}=req.body
         console.log('Edit Comment:', req.body)
@@ -46,7 +50,7 @@ module.exports.editComment=async (req, res)=>{
     }
 }
 
-module.exports.getUserComments=async (req, res)=>{
+module.exports.getUserComments=async (req, res, next)=>{
     try{
         let id=req.user.id
         console.log('UserId in comments:', id)
@@ -60,6 +64,7 @@ module.exports.getUserComments=async (req, res)=>{
         return res.render('allMyComments', {allComments: allComments, page: 'userComments', author: req.user})
     }
     catch(err){
-
+        console.log('Error in getUserComments:', err)
+        next(err)
     }
 }

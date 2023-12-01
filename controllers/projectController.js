@@ -21,10 +21,13 @@ module.exports.allProjects=async (query)=>{
     }
 }
 
-module.exports.createProject=async (req, res)=>{
+module.exports.createProject=async (req, res, next)=>{
     const {name, description, author}=req.body
 
     try{
+        if(description.length>1000){
+            throw new Error("User Error: Description length must be less than 1000 characters.");
+        }
         const project=await Project.create({
             name, description, author
         })
@@ -33,7 +36,9 @@ module.exports.createProject=async (req, res)=>{
         //return res.status(201).json(project)
     }
     catch(err){
-        return res.status(200).json({error: err})
+        console.log('Project Creation Error:', err)
+        //return res.status(500).json({error: err})
+        next(err)
     }
 }
 
@@ -42,7 +47,7 @@ module.exports.renderCreateProject=(req, res)=>{
     return res.render('projectForm', { title: 'Create Project', page: 'projectForm', author: req.user, user: req.user.id })
 }
 
-module.exports.getAllProjects=async (req, res)=>{
+module.exports.getAllProjects=async (req, res, next)=>{
     try{
         console.log('Get All Projects')
         const projects=await Project.find({}).populate('author', 'username -_id')
@@ -51,12 +56,14 @@ module.exports.getAllProjects=async (req, res)=>{
         return res.status(200).json(projects)
     }
     catch(err){
-        console.log('Error:', err)
-        return res.status(404).json({error: err})
+        console.log('Error in getAllProjects:', err)
+        // return res.status(404).json({error: err})
+        next(err)
     }
 }
 
-module.exports.showProjectPage=async(req, res)=>{
+module.exports.showProjectPage=async(req, res, next)=>{
+    console.log('SHOW PROJECT PAGE')
     console.log("Params:", req.params);
     console.log('METHOD:', req.method);
     console.log('REQ BODY:', req.body);
@@ -72,7 +79,7 @@ module.exports.showProjectPage=async(req, res)=>{
         titleDescriptionMatch.title=title
     }
     if(description){
-        titleDescriptionMatch.description=description
+        titleDescriptionMatch.description={ $regex: description, $options: 'i'}
     }
     if(authors){
         let allAuthors=authors.split(',').slice(0, -1)
@@ -93,20 +100,36 @@ module.exports.showProjectPage=async(req, res)=>{
     //AUTHOR MATCH: match:{"username":{$in: ['shivamk001',]}}
     //LABELS MATCH: match:{name: {$in: query['label']}}
     //TITLE DESCRIPTION MATCH: match:{title: title, description:description}
-    const project=await Project.findById({_id:_id})
+    let project={}
+
+    // if(titleDescriptionMatch){
+    //     console.log('Inside:', titleDescriptionMatch)
+    //     project=await Project.findById({_id:_id})
+    //     .populate('author', 'username -_id')
+    //     .populate({path: 'issues',  populate: {path: 'author', select:'username -_id'}})
+    //     .populate({path: 'issues', populate: {path: 'comments', populate: {path: 'author', select:'username -_id'}}})
+    //     .populate({path: 'issues', match: titleDescriptionMatch, populate: {path: 'labels'}})
+    // }
+    // else{
+        project=await Project.findById({_id:_id})
         .populate('author', 'username -_id')
+        .populate({path: 'issues', populate: {path: 'comments', populate: {path: 'author', select:'username -_id',}}})
         .populate({path: 'issues',  populate: {path: 'author', select:'username -_id',  match: authorMatch}})
         .populate({path: 'issues', populate: {path: 'labels', match: labelMatch}, match: titleDescriptionMatch})
-        .populate({path: 'issues', populate: {path: 'comments', populate: {path: 'author', select:'username -_id',}}})
+    // }
 
 
+    
     project.issues.forEach(issue=>{
+        console.log(issue.title)
+        console.log(issue.labels.length)
         console.log('Comments:', issue.comments)
         issue.comments.forEach(comment=>{
             console.log('DATE:', comment.createdAt)
         })
     })
     
+    console.log("Total Issues in Project:",project.issues)
 
     const labelss=await Label.find({}).select('name _id')
     const Users=await User.find({}).select('username -_id')
@@ -117,12 +140,13 @@ module.exports.showProjectPage=async(req, res)=>{
     //return res.status(201).json({ project })    
     }
     catch(err){
-        console.log('Error:', err)
-        return res.status(404).json({error: err})
+        console.log('Error in showProjectPage:', err)
+        // return res.status(404).json({error: err})
+        next(err)
     }
 }
 
-module.exports.deleteProject=async(req, res)=>{
+module.exports.deleteProject=async(req, res, next)=>{
     let {id}=req.params
     try{
         let _id= new mongoose.Types.ObjectId(id);
@@ -145,11 +169,12 @@ module.exports.deleteProject=async(req, res)=>{
     }
     catch(err){
         // return res.status(404).json({error: err})
+        console.log('Error in deleteProject:', err)
         next(err)
     }
 }
 
-module.exports.getUserProjects=async (req, res)=>{
+module.exports.getUserProjects=async (req, res, next)=>{
     try{
         console.log('Get User Projects:', req.params.id)
         let query={author: req.params.id}
@@ -162,6 +187,7 @@ module.exports.getUserProjects=async (req, res)=>{
     catch(err){
         // console.log('Error:', err)
         // return res.status(404).json({error: err})
+        console.log('Error in getUserProjects:', err)
         next(err)
     }
 }

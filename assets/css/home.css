@@ -399,6 +399,10 @@ h1{
     background-color:  #1E3050; 
 }
 
+.button:hover a{
+    color: white;
+}
+
 .button:hover i{
     color: white;
 }
@@ -447,3 +451,12 @@ small{
     border: 1px solid red;
     color: white;
 }
+
+
+a{
+    text-decoration: none;
+}
+
+/* a:visited{
+    color: #1E3050;
+} */

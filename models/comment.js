@@ -3,7 +3,8 @@ const mongoose=require('mongoose');
 const CommentSchema=new mongoose.Schema({
     comment:{
         type: String,
-        required: true
+        required: true,
+        maxLength: 200
     },
     issue:{
         type: mongoose.Schema.Types.ObjectId,

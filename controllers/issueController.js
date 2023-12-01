@@ -8,31 +8,41 @@ module.exports.createIssue=async (req, res, next)=>{
     try{
         console.log('Label in Issue Created:', labels)
         console.log('Project _id:', project)
-        const issue=await Issue.create({project, title, description, status, author});
-
         console.log('Labels:', labels)
         let labelsArray=labels.split(',').slice(0,-1);
         console.log('Labels Array:', labelsArray)
-        labelsArray.forEach(label=>{
-            let labelid=label.split('|')[1]
-            console.log('Labels Id:', labelid)
-            issue.labels.push(new mongoose.Types.ObjectId(labelid));
-        })
-        issue.save()
-        //issue.populate({path: 'labels', populate: {path: 'label', select:'name -_id'}})
-        console.log('Issue Created:', issue)
+        console.log('Description Length:', description.length)
+        
+        if(description.length>500){
+            throw new Error("User Error: Description length must be less than 500 characters.");
+        }
+        if(labelsArray.length===0){
+           throw new Error("User Error: Please select at least one label");
+        }
+        else{
+            const issue=await Issue.create({project, title, description, status, author});
+            labelsArray.forEach(label=>{
+                let labelid=label.split('|')[1]
+                console.log('Labels Id:', labelid)
+                issue.labels.push(new mongoose.Types.ObjectId(labelid));
+            })
+            issue.save()
+            //issue.populate({path: 'labels', populate: {path: 'label', select:'name -_id'}})
+            console.log('Issue Created:', issue)
 
 
 
-        let projectId= new mongoose.Types.ObjectId(project);
-        const reqdProject=await Project.findById(projectId);
-        reqdProject.issues.push(issue._id);
-        reqdProject.save();
-        console.log('Project Issues:', reqdProject);
-        //return res.status(201).json(issue)
-        return res.redirect(`/project/page/${project}`)
+            let projectId= new mongoose.Types.ObjectId(project);
+            const reqdProject=await Project.findById(projectId);
+            reqdProject.issues.push(issue._id);
+            reqdProject.save();
+            console.log('Project Issues:', reqdProject);
+            //return res.status(201).json(issue)
+            return res.redirect(`/project/page/${project}`)
+        }
     }
     catch(err){
+        console.log('Error in createIssue:',err)
         next(err)
     }
 }
@@ -51,6 +61,7 @@ module.exports.getUserIssues=async (req, res, next)=>{
     catch(err){
         // console.log('Err:', err)
         // return res.status(404).json(err)
+        console.log('Error in getUserIssues:',err)
         next(err)
     }
 }
@@ -84,6 +95,7 @@ module.exports.deleteIssue=async (req, res, next)=>{
     catch(err){
         // console.log('Err:', err)
         // return res.status(404).json(err)
+        console.log('Error in deleteIssue:',err)
         next(err)
     }
 

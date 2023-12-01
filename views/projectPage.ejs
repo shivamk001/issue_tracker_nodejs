@@ -58,10 +58,10 @@
         <div class="issueContainer" >
             <div class="heading">
                 <h3>Issues</h3>
-                <div class="hamburgerIcon" id="projectPagehamburgerIcon"><i class="fa-solid fa-bars"></i></div>
+                <div class="hamburgerIcon" title="Search and Create Buttons" id="projectPagehamburgerIcon"><i class="fa-solid fa-bars"></i></div>
                 <div class="hamburgerMenu" id="projectPagehamburgerMenu">
                     <button class="button" id="resetButton">
-                        <a href="/project/page/<%= project.id %>"   style=" text-decoration: none;"><i class="fa-solid fa-rotate-right"></i>&nbsp;Reset</a></button>
+                        <a href="/project/page/<%= project.id %>"><i class="fa-solid fa-rotate-right"></i>&nbsp;Reset</a></button>
                     <button class="button" id="searchButton">
                         <i class="fa-solid fa-magnifying-glass"></i>&nbsp;Search</button>
                     <button class="button" id="filterButton">
@@ -81,7 +81,7 @@
                     minute: "2-digit",
                   }; %>
                 <% let issueFomattedDate=issueCreatedAt.toLocaleDateString('en-US', options) %>
-                <% if(issue.author && issue.labels.length>0 ){ %>
+                <% if( issue.author && issue.labels.length>0 ){ %>
                     <div class="issueCard">
                         <h4 style="margin: 1% 1% 0% 1%; text-align: left;"><%= issue.title %></h4>
 
@@ -91,7 +91,7 @@
                                 <p style="margin: 0%;font-size: small;"><%= issue.author?issue.author.username:'' %></p>
                             </div>
                             <div class="authorContainer">
-                                <small ><b>CREATED:</b></small>
+                                <small ><b>CREATED ON:</b></small>
                                 <p style="margin: 0%; font-size: small;"><%= issueFomattedDate %></p>
                             </div>
                             <div class="authorContainer">
@@ -135,8 +135,8 @@
                             <input type="text" name="project" value="<%= project._id %>" hidden/>
                             <input  type="text" name="issue" value="<%= issue._id %>" hidden/>
                             <div style="display: flex; flex-direction:row; margin: 1%;">
-                                <input type="text" name="comment" placeholder="Write Comment" style="width: 85%; padding: 1%;">
-                                <input type="submit" value="Comment" style="background-color: black; color: white; width: 15%; cursor: pointer;">
+                                <input type="text" name="comment" placeholder="Write Comment(less than 200 characters)" style="width: 85%; padding: 1%;">
+                                <input type="submit" value="Comment" class="commentButton">
                             </div>
                         </form>
                         <div class="labelsContainer">
@@ -174,7 +174,7 @@
                         <textarea id="issueFormDescription" type="text" name="description" placeholder="Enter description" required></textarea><br>
                 </div>
                 <div  class="inputContainer">
-                    <h4 for="issueFormDescription">Labels(Can select multiple):</h4>
+                    <h4 for="issueFormDescription">Labels(Select Atlease One Label):</h4>
                     <div style="display: flex; flex-direction: row; flex-wrap: wrap; margin: 1%; width: 90%; overflow-y: scroll; ">
                         <input id="createIssueFormLabelsInput" type="hidden" name="labels" value/>
                         <% for(let label of labels){ %>
@@ -197,7 +197,7 @@
     <section id="searchSection">
         <div style="width: 50%; height: auto; background-color: lightgray; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
             <div style="height: 10%; width: 100%; display: flex; justify-content: space-between;">
-                <h4>SEARCH ISSUE</h4>
+                <h4>SEARCH ISSUE()</h4>
                 <button id="closeSearchButton"><i class="fa-solid fa-x"></i></button>
             </div>
             <form id="searchIssueForm" class="form" action="/project/page/<%= project.id %>" method="POST" style="width: 90%; height: 90%; background-color: white; margin-bottom: 5%;">
@@ -209,7 +209,7 @@
                 </div>
 
                 <div class="inputContainer">
-                        <h4 for="searchIssueFormDescription">Description</h4>
+                        <h4 for="searchIssueFormDescription">Description(Enter only a part of description)</h4>
                         <textarea id="searchIssueFormDescription" type="text" name="description" placeholder="Enter description"></textarea><br>
                 </div>
                 <input type="submit" value="Submit issue" style="height: 15%; width: auto; padding: 1%;">

@@ -7,7 +7,7 @@
             <div class="issueContainer">
                 <div class="heading">
                     <h3>All Projects</h3>
-                    <div class="hamburgerIcon" id="homeHamburgerIcon"><i class="fa-solid fa-bars"></i></div>
+                    <div class="hamburgerIcon" id="homeHamburgerIcon" title="Search and Reset Options"><i class="fa-solid fa-bars"></i></div>
                     <div class="hamburgerMenu" id="homeHamburgerMenu">
                         <button id="resetButton" class="button">
                             <a href="/"   style=" text-decoration: none;"><i class="fa-solid fa-rotate-right"></i>&nbsp;Reset</a></button>
@@ -19,23 +19,23 @@
                 </div>
                 <% for(let project of projects){ %>
                     <div class="projectCard">
-                        <h4><a href="/project/page/<%= project.id %>"><%= project.name %></a></h4>
+                        <h4 title="Click to open"><a href="/project/page/<%= project.id %>"><%= project.name %></a></h4>
                         <div class="authorCreatedissuesContainer" >
                             <div class="authorContainer">
-                                <small><b>Author:</b></small>
+                                <small><b>AUTHOR</b></small>
                                 <p style="margin: 0%;font-size: small;"><%= project.author?project.author.username:'' %></p>
                             </div>
                             <div class="authorContainer">
-                                <small><b>Created At:</b></small>
+                                <small><b>CREATED AT</b></small>
                                 <p style="margin: 0%; font-size: small;"><%= project.createdAt.toLocaleDateString('en-US', {year:'numeric', month: 'numeric', day:'numeric', minute: '2-digit', second: '2-digit', hour: '2-digit'}) %></p>
                             </div>
                             <div class="authorContainer">
-                                <small><b>#Issues:</b></small>
+                                <small><b>#ISSUES</b></small>
                                 <p style="margin: 0%;font-size: small; align-self: center;"><%= project.issues.length %></p>
                             </div>
                         </div>
                         <div class="authorContainer">
-                            <small><b>Description:</b></small>
+                            <small><b>DESCRIPTION</b></small>
                             <p style="margin: 0%;font-size: small;"><%= project.description %></p>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 let {allProjects}=require('./projectController')
 
-module.exports.home=async function(req, res){
+module.exports.home=async function(req, res, next){
     try{
         //get all user
         console.log('HOME REQ.BODY:', req.query)
@@ -10,9 +10,10 @@ module.exports.home=async function(req, res){
             query.name=name
         }
         if(description){
-            query.description=description
+            query.description={$regex: description, $options: 'i'}
         }
         console.log('QUERY:', query)
+        
         let projects=await allProjects(query)
         console.log('ALLProjects:', projects)
         projects.forEach(project=>{
