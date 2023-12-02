@@ -289,9 +289,9 @@ hamburgerIcon.addEventListener('click', ()=>{
 
     if(visible==='hidden'  || visible===''){
         hamburgerMenu.style.display='flex';
-        hamburgerMenu.style.top='50%';
+        hamburgerMenu.style.top='65%';
         hamburgerMenu.style.opacity='1';
-        hamburgerMenu.style.right='5%';
+        hamburgerMenu.style.right='1%';
         hamburgerMenu.style.visibility='visible';
     }
 

@@ -58,9 +58,9 @@ hamIcon.addEventListener('click', ()=>{
 
     if(visible==='hidden'  || visible===''){
         hamMenu.style.display='flex';
-        hamMenu.style.top='10%';
+        hamMenu.style.top='18%';
         hamMenu.style.opacity='1';
-        hamMenu.style.right='5%';
+        hamMenu.style.right='1%';
         hamMenu.style.visibility='visible';
     }
 

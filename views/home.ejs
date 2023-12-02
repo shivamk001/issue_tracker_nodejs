@@ -3,20 +3,26 @@
 
 
     <section class="projectDetailsParentContainer">
+        <div class="issueTrackerHeading">
+            <h2>Issue Tracker</h2>
+    </div>
+
+        <div class="heading">
+            <h3>All Projects</h3>
+            <div class="hamburgerIcon" id="homeHamburgerIcon" title="Search and Reset Options"><i class="fa-solid fa-bars"></i></div>
+            <div class="hamburgerMenu" id="homeHamburgerMenu">
+                <button id="resetButton" class="button">
+                    <a href="/"   style=" text-decoration: none;"><i class="fa-solid fa-rotate-right"></i>&nbsp;Reset</a></button>
+                <!-- <button id="createProjectButton" style="margin: 1%; width: auto; background-color: white; border: 1px solid #0E8A16;; border-radius: 1.5rem; color: #0E8A16;; cursor: pointer;">
+                    <i class="fa-solid fa-plus" style="color: #0E8A16;"></i>Create Project</button> -->
+                <button id="searchProjectButton" class="button">
+                    <i class="fa-solid fa-magnifying-glass"></i>Search Project</button>
+            </div>
+        </div>
+
         <section class="issueSection" id="issueSection">
             <div class="issueContainer">
-                <div class="heading">
-                    <h3>All Projects</h3>
-                    <div class="hamburgerIcon" id="homeHamburgerIcon" title="Search and Reset Options"><i class="fa-solid fa-bars"></i></div>
-                    <div class="hamburgerMenu" id="homeHamburgerMenu">
-                        <button id="resetButton" class="button">
-                            <a href="/"   style=" text-decoration: none;"><i class="fa-solid fa-rotate-right"></i>&nbsp;Reset</a></button>
-                        <!-- <button id="createProjectButton" style="margin: 1%; width: auto; background-color: white; border: 1px solid #0E8A16;; border-radius: 1.5rem; color: #0E8A16;; cursor: pointer;">
-                            <i class="fa-solid fa-plus" style="color: #0E8A16;"></i>Create Project</button> -->
-                        <button id="searchProjectButton" class="button">
-                            <i class="fa-solid fa-magnifying-glass"></i>Search Project</button>
-                    </div>
-                </div>
+
                 <% for(let project of projects){ %>
                     <div class="projectCard">
                         <h4 title="Click to open"><a href="/project/page/<%= project.id %>"><%= project.name %></a></h4>
@@ -27,7 +33,7 @@
                             </div>
                             <div class="authorContainer">
                                 <small><b>CREATED AT</b></small>
-                                <p style="margin: 0%; font-size: small;"><%= project.createdAt.toLocaleDateString('en-US', {year:'numeric', month: 'numeric', day:'numeric', minute: '2-digit', second: '2-digit', hour: '2-digit'}) %></p>
+                                <p style="margin: 0%; font-size: small;"><%= project.createdAt.toLocaleDateString('en-US', {year:'numeric', month: 'numeric', day:'numeric', minute: '2-digit', hour: '2-digit', hour12: false,}) %></p>
                             </div>
                             <div class="authorContainer">
                                 <small><b>#ISSUES</b></small>
@@ -72,8 +78,8 @@
 
 
     <!-- SEARCH PROJECT SECTION -->
-    <section id="searchProjectFormSection">
-        <div style="width: 50%; height: auto; background-color: lightgray; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
+    <section id="searchProjectFormSection" class="createSearchFilterEditSection">
+        <div style="width: 90%; height: auto; background-color: lightgray; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
             <div style="height: 10%; width: 100%; display: flex; justify-content: space-between;">
                 <h1>Search Project</h1>
                 <button id="closeSearchProjectFormButton"><i class="fa-solid fa-x"></i></button>
@@ -89,7 +95,7 @@
                         <h4 for="projectFormDesc">Description:</h4>
                         <textarea id="projectFormDesc" type="text" name="description" placeholder="Enter project description" textarea></textarea>
                 </div>
-                <input type="submit" placeholder="Submit" value="Submit" style="height: 15%; width: auto; padding: 1%;">
+                <input type="submit" placeholder="Submit" value="Submit" style="height: 15%; min-width: 20%; width: auto; padding: 1%;">
             </form>
         
 

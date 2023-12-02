@@ -2,11 +2,18 @@
 
 
 <section class="projectDetailsParentContainer">
+    
+    <div class="issueTrackerHeading">
+        <h2>Issue Tracker</h2>
+    </div>
+    <div class="heading">
+        <h3>All My Issues</h3>
+    </div>
+
     <section class="issueSection" id="issueSection">
+
         <div class="issueContainer">
-            <div class="heading">
-                <h3>All My Issues</h3>
-            </div>
+
     
             <% for(let issue of allIssues){ %>
                 <% const options = {
@@ -15,7 +22,7 @@
                     day: "numeric",
                     hour: "2-digit",
                     minute: "2-digit",
-                    second: "2-digit",
+                    hour12: false
                   }; %>
 
                     <div class="issueCard">
@@ -42,7 +49,7 @@
 
                         <div class="labelsContainer">
                             <% for(let label of issue.labels){ %>
-                                <div class="label" style="color: <%= label.color %>; background-color: <%= label.backgroundColor %>"><%= label.name %></div>
+                                <div class="label" style="color: <%= label.color %>; background-color: <%= label.backgroundColor %>"> <small style="color: <%= label.color %>;"><%= label.name %></small> </div>
                             <% } %>
                         </div>
                     </div>

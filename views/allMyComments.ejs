@@ -2,22 +2,33 @@
 
 
 <section class="projectDetailsParentContainer">
-    <section class="issueSection" id="commentSection">
-        <div class="issueContainer" id="commentContainer">
-            <div class="heading">
-                <h3>All My Comments</h3>
-                
-                <!-- <div class="hamburgerIcon" id="mycommentsHamburgerIcon"><i class="fa-solid fa-bars"></i></div> -->
+
+    <div class="issueTrackerHeading">
+        <h2>Issue Tracker</h2>
+    </div>
+
+    <div class="heading">
+        <h3>All My Comments</h3>
         
-                <!-- <div style="width: 50%; display: flex; flex-direction: row; justify-content: flex-end; align-items: center; "> -->
-                
-                    <!-- <div class="hamburgerMenu" id="mycommentshomeHamburgerMenu">
-                    <button id="resetButton" class="button">
-                        <a href="/"   style=" text-decoration: none;"><i class="fa-solid fa-rotate-right"></i>&nbsp;Reset</a></button>
-                    <button id="searchProjectButton" class="button">
-                        <i class="fa-solid fa-magnifying-glass"></i>Search Project</button>
-                </div> -->
-            </div>
+        <!-- <div class="hamburgerIcon" id="mycommentsHamburgerIcon"><i class="fa-solid fa-bars"></i></div> -->
+
+        <!-- <div style="width: 50%; display: flex; flex-direction: row; justify-content: flex-end; align-items: center; "> -->
+        
+            <!-- <div class="hamburgerMenu" id="mycommentshomeHamburgerMenu">
+            <button id="resetButton" class="button">
+                <a href="/"   style=" text-decoration: none;"><i class="fa-solid fa-rotate-right"></i>&nbsp;Reset</a></button>
+            <button id="searchProjectButton" class="button">
+                <i class="fa-solid fa-magnifying-glass"></i>Search Project</button>
+        </div> -->
+    </div>
+
+    <section class="issueSection" id="commentSection">
+
+
+
+
+        <div class="issueContainer" id="commentContainer">
+
             <!-- <div style="width:100%; display: flex; justify-content: space-between; align-items: center;">
                 <h4>ALL MY COMMENTS</h4>
             </div> -->
@@ -30,7 +41,7 @@
                     day: "numeric",
                     hour: "2-digit",
                     minute: "2-digit",
-                    second: "2-digit",
+                    hour12: false
                   }; %>
                 <% let commentFomattedDate=commentCreatedAt.toLocaleDateString('en-US', options) %>
 
