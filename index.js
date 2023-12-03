@@ -30,7 +30,7 @@ require('./config/mongoose')
 //passport
 //session
 app.use(session({
-    secret:'paplesh mahashay',
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
