@@ -46,7 +46,7 @@ module.exports.home=async function(req, res, next){
         let flashObject=req.flash()
         let flashMessage=setFlashMessage(flashObject)
         //console.log('Flash Message:', flashObject)
-        //console.log('FLASHMESSAGE:', flashMessage)
+        console.log('FLASHMESSAGE:', flashMessage)
 
         return res.render('home', { title: 'IssueTrackerHome', projects, page: 'home', author: req.user, flashMessage });
     }

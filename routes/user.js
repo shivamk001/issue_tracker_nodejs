@@ -8,7 +8,7 @@ const User=require('../models/user')
 
 
 //CONFIGURE PASSPORT TO USE LOCAL STRATEGY
-passport.use(new LocalStrategy(async function verify(username, password, done){
+passport.use(new LocalStrategy({passReqToCallback: true}, async function verify(req, username, password, done){
     try{
         const user=await User.findOne({username});
         //console.log('User in LocalStrategy:', user, user.password)
@@ -20,7 +20,8 @@ passport.use(new LocalStrategy(async function verify(username, password, done){
             return done(null, user);
         }
         else{
-            //console.log('redirect to /login')
+            console.log('redirect to /login', req.flash('error'))
+            //req.flash('warning', 'Incorrect username or password.')
             return done(null, false);
         }
     }
@@ -45,11 +46,12 @@ passport.deserializeUser(function(user, cb) {
 });
 
 const userController=require('../controllers/userController')
-const isAuthenticated=require('../utilities/isAuthenticated')
+const {isAuthenticated, isAuthenticatedLoggedIn}=require('../utilities/isAuthenticated')
 
 
 //FOR NON AUTHENTICATED USER
 //SIGNUP ROUTE
+// router.use(isAuthenticatedLoggedIn)
 router.get('/signup', userController.renderSignup)
 //CREATE USER ROUTE
 router.post('/create', userController.createUser)
@@ -57,11 +59,13 @@ router.post('/create', userController.createUser)
 router.get('/login', userController.renderLogin)
 //ROUTE AFTER USER HAS SUBMITTED PASSWORD AND USERNAME 
 router.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/user/login'
-  }))//, userController.loginUser)
+    //successRedirect: '/',
+    failureRedirect: '/user/login',
+    failureFlash:'Incorrect username or password entered.',
+    // successFlash: 'Login successful!'
+  }), userController.loginUser)
 
-//FOR AUTHENTICATED USER
+//FOR AUTHENTICATED USER ONLY
 router.use(isAuthenticated)
 //UPDATE USER DETAILS ROUTE
 router.post('/update', userController.updateUser)

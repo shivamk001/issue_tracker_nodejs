@@ -33,3 +33,42 @@
                 <input type="submit" placeholder="Submit" value="Submit"/>
             </form>
         </section>
+
+
+        <script>
+                <% console.log('HOMEPAGE FLASHMESSAGE:', flashMessage) %>
+                <% if(flashMessage.success){ %>
+                    new Noty({
+                            theme: 'relax',
+                            text: "<%= flashMessage.success %>",
+                            type: "success",
+                            layout: 'topRight',
+                            timeout: '1500',
+                            progressBar: true
+                        }).show();
+                <% } %>
+            
+                <% if(flashMessage.info){ %>
+                    <%console.log(flashMessage.info);%>
+                    new Noty({
+                            theme: 'relax',
+                            text: "<%= flashMessage.info %>",
+                            type: "info",
+                            layout: 'topRight',
+                            timeout: '3000',
+                            progressBar: true
+                        }).show();
+                <% } %>
+            
+                <% if(flashMessage.warning || flashMessage.error){ %>
+                    <%console.log('Warning Error',flashMessage.warning? flashMessage.warning: flashMessage.error);%>
+                    new Noty({
+                            theme: 'relax',
+                            text: "<%= flashMessage.warning? flashMessage.warning: flashMessage.error %>",
+                            type: "warning",
+                            layout: 'topRight',
+                            timeout: '1500',
+                            progressBar: true
+                        }).show();
+                <% } %>
+        </script>

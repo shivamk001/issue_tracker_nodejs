@@ -10,5 +10,8 @@ module.exports=function setFlashMessage(flashObject){
     else if(flashObject.hasOwnProperty('warning')){
         flashMessage.warning=flashObject.warning
     }
+    else if(flashObject.hasOwnProperty('error')){
+        flashMessage.error=flashObject.error
+    }
     return flashMessage
 }

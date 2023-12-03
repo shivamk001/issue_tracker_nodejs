@@ -1,10 +1,14 @@
 const mongoose=require('mongoose')
 const User=require('../models/user')
+const setFlashMessage=require('../utilities/setFlashMessage')
 
 //RENDER SIGNUP PAGE
 module.exports.renderSignup=async (req, res, next)=>{
     try{
-        return res.render('signupForm', {page: 'signup', title: 'signup'})
+        let flashObject=req.flash()
+        let flashMessage=setFlashMessage(flashObject)
+        console.log('SignUp FlashMessage:', flashMessage)
+        return res.render('signupForm', {page: 'signup', title: 'signup', flashMessage})
     }
     catch(err){
         console.log('Error in renderSignup:', err);
@@ -22,6 +26,12 @@ module.exports.createUser=async (req, res, next)=>{
     let {username, email, password, userType, confirmPassword}=req.body
     //console.log('Signup:', username, email, password, userType, confirmPassword)
     try{
+        let user=await User.find({username, email})
+        //console.log('USER IN CREATE USER:', user)
+        if(user.length>=1){
+            req.flash('warning', 'Username or email alreay exists.')
+            return res.redirect('/user/signup')
+        }
         if(password===confirmPassword){
             let user=await User.create({
                 username, email, password, userType
@@ -32,6 +42,7 @@ module.exports.createUser=async (req, res, next)=>{
             return res.redirect('/user/login')
         }
         else{
+            req.flash('warning', 'Password and Confirm Password do not match.')
             return res.redirect('/user/signup')
         }
     }
@@ -47,7 +58,12 @@ module.exports.createUser=async (req, res, next)=>{
 //RENDER LOGIN PAGE
 module.exports.renderLogin=async (req, res, next)=>{
     try{
-        return res.render('loginForm', {page: 'login', title: 'Login', /*user: undefined*/})
+        //console.log('Flash Message in renderLogin:', req.flash())
+        //SET FLASHMESSAGE
+        let flashObject=req.flash()
+        let flashMessage=setFlashMessage(flashObject)
+        console.log(flashMessage)
+        return res.render('loginForm', {page: 'login', title: 'Login', flashMessage /*user: undefined*/})
     }
     catch(err){
         // console.log(err);
@@ -63,8 +79,9 @@ module.exports.renderLogin=async (req, res, next)=>{
 
 module.exports.loginUser=async (req, res, next)=>{
     try{
-        console.log('Flash Message:', req.flash('info'))
-        return res.render('loginForm', {page: 'login', title: 'Login'})
+        req.flash('success', 'Login successful.')
+        console.log('IN LOGIN USER')
+        return res.redirect('/')
     }
     catch(err){
         // console.log(err);
@@ -120,7 +137,7 @@ module.exports.updateUser=async (req, res, next)=>{
         //console.log('UpdateUser:', username, req.user.username)
         if(req.user.username===username){
             await User.findByIdAndUpdate({password})
-            req.flash('success', 'User Details Updated SUCCESSFULLY!')
+            req.flash('success', 'User Details Updated Successfully!')
             return res.redirect('/')
         }
         else{

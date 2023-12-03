@@ -1,7 +1,7 @@
 const express=require('express')
 const router=express.Router()
 
-const isAuthenticated=require('../utilities/isAuthenticated')
+const {isAuthenticated}=require('../utilities/isAuthenticated')
 
 const projectController=require('../controllers/projectController')
 
