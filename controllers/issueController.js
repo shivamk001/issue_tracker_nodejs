@@ -60,8 +60,12 @@ module.exports.getUserIssues=async (req, res, next)=>{
     let {id}=req.params;
     try{
         let userId=new mongoose.Types.ObjectId(id);
-        let allIssues=await Issue.find({author: userId}).populate({path: 'project', select: 'name -_id'}).populate({path: 'labels', select: 'name color backgroundColor -_id'})
+        let allIssues=await Issue.find({author: userId})
+        .populate({path: 'author', select: 'username -_id'})
+        .populate({path: 'project', select: 'name -_id'})
+        .populate({path: 'labels', select: 'name color backgroundColor -_id'})
         //console.log('AllIssues:', allIssues.labels)
+        
         return res.render('allMyIssues', {allIssues: allIssues, author: req.user, page: 'userIssues'})
         //return res.status(200).json(allIssues)
     }
