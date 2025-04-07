@@ -33,14 +33,15 @@ app.use(session({
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({
-        mongoUrl:'mongodb+srv://shivamk001:4gtBAfKze5K1D2wJ@cluster0.r6rocwl.mongodb.net/issueTracker?retryWrites=true&w=majority'
-    })
+    // store: MongoStore.create({
+        // mongoUrl:'mongodb+srv://shivamk001:4gtBAfKze5K1D2wJ@cluster0.r6rocwl.mongodb.net/issueTracker?retryWrites=true&w=majority',
+        mongoUrl:'mongodb://localhost:27017/issuetracker?retryWrites=true&w=majority'
+    // })
 }))
 app.use(passport.authenticate('session'));
 app.use(flash());
 
-app.use('/',  require('./routes'))
+app.use('/issuetracker',  require('./routes'))
 
 
 app.use((err, req, res, next)=>{

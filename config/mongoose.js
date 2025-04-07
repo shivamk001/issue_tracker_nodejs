@@ -2,7 +2,7 @@ const mongoose=require('mongoose');
 
 
 //mongodb cluster
-const mongodb=process.env.MONGOOSEDB
+const mongodb=process.env.MONGOOSEDB;
 mongoose.connect(mongodb).
 catch(error => console.error(error));
 

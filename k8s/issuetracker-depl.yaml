@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: issuetracker-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: issuetracker
+  template:
+    metadata:
+      labels:
+        app: issuetracker
+    spec:
+      containers:
+        - name: issuetracker
+          image: shivamk001/issuetracker
+          env:
+            - name: NODE_ENV
+              value: test
+            - name: MONGO_URL
+              value: 'mongodb://issuetracker-mongo-srv:27017:issuetracker'
+            - name: JWT-KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: issuetracker-srv
+spec:
+  selector:
+    app: issuetracker
+  ports:
+    - name: issuetracker
+      protocal: TCP
+      port: 3000
+      targetPort: 3000

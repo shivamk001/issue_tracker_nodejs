@@ -36,7 +36,7 @@ module.exports.createProject=async (req, res, next)=>{
         })
         //console.log('Project:', project)
         req.flash('success', 'Project created!')
-        return res.redirect('/')
+        return res.redirect('/issuetracker')
         //return res.status(201).json(project)
     }
     catch(err){
@@ -203,7 +203,7 @@ module.exports.deleteProject=async(req, res, next)=>{
         const deletedProject=await Project.findByIdAndDelete(_id);
         //console.log("deleted:", _id, deletedProject)
         req.flash('info', 'Project Deleted!')
-        return res.redirect('/')
+        return res.redirect('/issuetracker')
     }
     catch(err){
         // return res.status(404).json({error: err})

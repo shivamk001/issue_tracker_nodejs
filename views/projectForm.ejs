@@ -9,8 +9,8 @@
                         <h2>Issue Tracker</h2>
                 </div>
 
-            <h1>Create Project</h1>
-            <form class="form" action="/project/create" method="POST">
+        <h1>Create Project</h1>
+        <form class="form" action="/issuetracker/project/create" method="POST">
                 <input type="text" value="<%= locals.user %>" name="author" hidden/>
                 <div class="inputContainer" style="height: 20%;">
                         <p for="projectFormName">Project Name:</p>
@@ -23,7 +23,7 @@
                 
 
                 <input type="submit" placeholder="Submit" value="Submit"/>
-            </form>
+        </form>
         </section>
 
 

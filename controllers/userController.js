@@ -30,7 +30,7 @@ module.exports.createUser=async (req, res, next)=>{
         //console.log('USER IN CREATE USER:', user)
         if(user.length>=1){
             req.flash('warning', 'Username or email alreay exists.')
-            return res.redirect('/user/signup')
+            return res.redirect('/issuetracker/user/signup')
         }
         if(password===confirmPassword){
             let user=await User.create({
@@ -39,11 +39,11 @@ module.exports.createUser=async (req, res, next)=>{
             
             //console.log('User created:', user)
             req.flash('success', 'User created successfully!')
-            return res.redirect('/user/login')
+            return res.redirect('/issuetracker/user/login')
         }
         else{
             req.flash('warning', 'Password and Confirm Password do not match.')
-            return res.redirect('/user/signup')
+            return res.redirect('/issuetracker/user/signup')
         }
     }
     catch(err){
@@ -81,7 +81,7 @@ module.exports.loginUser=async (req, res, next)=>{
     try{
         req.flash('success', 'Login successful.')
         console.log('IN LOGIN USER')
-        return res.redirect('/')
+        return res.redirect('/issuetracker')
     }
     catch(err){
         // console.log(err);
@@ -99,7 +99,7 @@ module.exports.logoutUser=(req, res, next)=>{
     try{
         req.logout(function(err){
             if(err){return next(err);}
-            return res.redirect('/')
+            return res.redirect('/issuetracker')
         })
     }
     catch(err){
@@ -138,7 +138,7 @@ module.exports.updateUser=async (req, res, next)=>{
         if(req.user.username===username){
             await User.findByIdAndUpdate({password})
             req.flash('success', 'User Details Updated Successfully!')
-            return res.redirect('/')
+            return res.redirect('/issuetracker')
         }
         else{
             return res.status(404).json({error: err})

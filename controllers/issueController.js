@@ -21,7 +21,7 @@ module.exports.createIssue=async (req, res, next)=>{
         }
         //THROW ERROR IF NO LABELS SELECTED
         if(labelsArray.length===0){
-           throw new Error("User Error: Please select at least one label");
+            throw new Error("User Error: Please select at least one label");
         }
         else{
             const issue=await Issue.create({project, title, description, status, author});
@@ -45,7 +45,7 @@ module.exports.createIssue=async (req, res, next)=>{
             //return res.status(201).json(issue)
 
             req.flash('success', 'Issue Created!')
-            return res.redirect(`/project/page/${project}`)
+            return res.redirect(`/issuetracker/project/page/${project}`)
         }
     }
     catch(err){

@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: traefik  # Corrected the annotation
+spec:
+  ingressClassName: traefik               # Moved ingressClassName to the right field
+  rules:
+    - host: shivamkesarwani.in
+      http:
+        paths:
+          - path: /uptime
+            pathType: Prefix
+            backend:
+              service:
+                name: issuetracker-srv
+                port:
+                  number: 3000

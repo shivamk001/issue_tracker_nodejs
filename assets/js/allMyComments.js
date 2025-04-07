@@ -11,7 +11,7 @@ async function deleteComment(e){
         console.log('Current Element:', currentElement)
         let id=currentElement.getAttribute('data-id')
         console.log('ID:', id)
-        let response=await fetch('/comment/delete',{
+        let response=await fetch('/issuetracker/comment/delete',{
             method: "DELETE",
             headers:{
                 "Content-Type": "application/json",

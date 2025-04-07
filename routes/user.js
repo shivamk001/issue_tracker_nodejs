@@ -34,14 +34,14 @@ passport.use(new LocalStrategy({passReqToCallback: true}, async function verify(
 //SERIALIZE USER
 passport.serializeUser(function(user, cb) {
     process.nextTick(function() {
-      cb(null, { id: user.id, username: user.username });
+        cb(null, { id: user.id, username: user.username });
     });
 });
 
 //DESERIALIZE USER
 passport.deserializeUser(function(user, cb) {
     process.nextTick(function() {
-      return cb(null, user);
+        return cb(null, user);
     });
 });
 
@@ -60,7 +60,7 @@ router.get('/login', userController.renderLogin)
 //ROUTE AFTER USER HAS SUBMITTED PASSWORD AND USERNAME 
 router.post('/login', passport.authenticate('local', {
     //successRedirect: '/',
-    failureRedirect: '/user/login',
+    failureRedirect: '/issuetracker/user/login',
     failureFlash:'Incorrect username or password entered.',
     // successFlash: 'Login successful!'
   }), userController.loginUser)

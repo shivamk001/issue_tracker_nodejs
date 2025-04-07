@@ -14,7 +14,7 @@ module.exports.createComment= async (req, res, next)=>{
 
         let newComment=await Comment.create({comment, issue, author})
         req.flash('success', 'Comment created!')
-        return res.redirect(`/project/page/${project}`)
+        return res.redirect(`/issuetracker/project/page/${project}`)
     }
     catch(err){
         console.log('Error in creating comment:', err)
@@ -46,7 +46,7 @@ module.exports.editComment=async (req, res, next)=>{
         let _id=new mongoose.Types.ObjectId(id);
         let updatedComment=await Comment.findByIdAndUpdate(_id,{comment: comment}, {returnDocument: 'after', })
         req.flash('success', 'Comment Edited!')
-        return res.redirect(`/project/page/${projectId}`)
+        return res.redirect(`/issuetracker/project/page/${projectId}`)
     }
     catch(err){
         next(err)

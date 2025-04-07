@@ -10,7 +10,7 @@ async function deleteIssue(e){
         console.log('Current Element:', currentElement)
         let id=currentElement.getAttribute('data-id')
         console.log('ID:', id)
-        let response=await fetch('/issue/delete',{
+        let response=await fetch('/issuetracker/issue/delete',{
             method: "DELETE",
             headers:{
                 "Content-Type": "application/json",
