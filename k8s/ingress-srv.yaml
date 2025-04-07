@@ -10,7 +10,7 @@ spec:
     - host: shivamkesarwani.in
       http:
         paths:
-          - path: /uptime
+          - path: /issuetracker
             pathType: Prefix
             backend:
               service:

@@ -20,4 +20,8 @@ router.use('/label', require('./label'));
 //COMMENT ROUTE
 router.use('/comment', require('./comment'));
 
+router.all('/uptime', (req, res)=>{
+    res.send('Issue Tracker is up and running');
+})
+
 module.exports=router
