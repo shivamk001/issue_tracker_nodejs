@@ -26,7 +26,7 @@ app.set('layout extractStyles', true)
 
 //mongodb
 require('./config/mongoose')
-console.log('MONGODB:', process.env.MONGO_URL);
+console.log('MONGODB:', process.env.MONGO_URL, `${process.env.MONGO_URL}?retryWrites=true&w=majority`);
 
 //passport
 //session
@@ -36,7 +36,7 @@ app.use(session({
     saveUninitialized: false,
     // store: MongoStore.create({
         // mongoUrl:'mongodb+srv://shivamk001:4gtBAfKze5K1D2wJ@cluster0.r6rocwl.mongodb.net/issueTracker?retryWrites=true&w=majority',
-        mongoUrl:`${process.env.MONGO_URL}?retryWrites=true&w=majority`
+        mongoUrl:`mongodb://issuetracker-mongo-srv:27017/issuetracker?retryWrites=true&w=majority`
     // })
 }))
 app.use(passport.authenticate('session'));
