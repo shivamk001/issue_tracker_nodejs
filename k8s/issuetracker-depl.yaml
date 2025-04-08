@@ -21,7 +21,7 @@ spec:
             - name: MONGO_URL
               value: mongodb://issuetracker-mongo-srv:27017/issuetracker
             - name: PORT
-              value: 3000
+              value: "3000"
             - name: JWT-KEY
               valueFrom:
                 secretKeyRef:
