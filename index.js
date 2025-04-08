@@ -26,7 +26,7 @@ app.set('layout extractStyles', true)
 
 //mongodb
 require('./config/mongoose')
-console.log('MONGODB:', mongodb);
+console.log('MONGODB:', process.env.MONGO_URL);
 
 //passport
 //session
