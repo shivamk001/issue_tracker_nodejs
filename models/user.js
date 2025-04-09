@@ -37,12 +37,14 @@ UserSchema.pre('save', function(next) {
         let user=this
         console.log('Save middleware:', this)
         
-        bcrypt.hash(user.password, 10).then(function(err, hash) {
-            // Store hash in your password DB.
-            console.log('Hash:', hash.length, typeof hash)
-            user.password=hash
-            console.log('Password:', user.password, user.username)
-            return next()
+        bcrypt.hash(user.password, 10)
+        .then((hash) => {
+            user.password = hash;
+            next();
+        })
+        .catch((err) => {
+            console.error('Error hashing password:', err);
+            next(err); // pass the error to Mongoose
         });
 
         // const salt = bcrypt.genSaltSync(saltRounds);
