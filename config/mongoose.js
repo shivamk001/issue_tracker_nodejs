@@ -3,6 +3,7 @@ const mongoose=require('mongoose');
 
 //mongodb cluster
 const mongodb=process.env.MONGO_URL;
+
 mongoose.connect(mongodb).catch(error => console.error(error));
 
 const db=mongoose.connection;

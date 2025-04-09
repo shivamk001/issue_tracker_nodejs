@@ -37,7 +37,7 @@ module.exports.createUser=async (req, res, next)=>{
                 username, email, password, userType
             })
             
-            //console.log('User created:', user)
+            console.log('User created:', user)
             req.flash('success', 'User created successfully!')
             return res.redirect('/issuetracker/user/login')
         }

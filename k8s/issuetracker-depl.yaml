@@ -22,6 +22,8 @@ spec:
               value: mongodb://issuetracker-mongo-srv:27017/issuetracker
             - name: PORT
               value: "3000"
+            - name: SALT_ROUNDS
+              value: 10
             - name: SECRET
               valueFrom:
                 secretKeyRef:

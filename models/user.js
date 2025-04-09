@@ -31,21 +31,29 @@ const UserSchema=new mongoose.Schema({
 
 //a middleware to hash the password before saving
 UserSchema.pre('save', function(next) {
-    // do stuff
-    let user=this
-    console.log('Save middleware:', this)
-    
-    bcrypt.hash(user.password, 10).then(function(hash) {
-        // Store hash in your password DB.
-        console.log('Hash:', hash.length, typeof hash)
-        user.password=hash
-        console.log('Password:', user.password, user.username)
-        return next()
-    });
 
-    // const salt = bcrypt.genSaltSync(saltRounds);
-    // const hash = bcrypt.hashSync(myPlaintextPassword, salt);
-    // user.password=hash
+    try{
+        // do stuff
+        let user=this
+        console.log('Save middleware:', this)
+        
+        bcrypt.hash(user.password, 10).then(function(err, hash) {
+            // Store hash in your password DB.
+            console.log('Hash:', hash.length, typeof hash)
+            user.password=hash
+            console.log('Password:', user.password, user.username)
+            return next()
+        });
+
+        // const salt = bcrypt.genSaltSync(saltRounds);
+        // const hash = bcrypt.hashSync(myPlaintextPassword, salt);
+        // user.password=hash
+    }
+    catch(err){
+        console.error('Error in hashing', err);
+        next(err);
+    }
+
 });
 
 UserSchema.method('comparePassword', function(textPassword){
